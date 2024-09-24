@@ -1,6 +1,8 @@
 import { auth } from '@/auth'
 import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
+import { SignOutButton } from '@/app/admin/sign-out-button'
+import Link from 'next/link'
 
 export default async function AdminPage() {
   // Get session from Auth.js
@@ -21,6 +23,8 @@ export default async function AdminPage() {
   return (
     <div className={'w-full min-h-screen flex flex-col items-center justify-center'}>
       <div>Admin Page</div>
+      <Link href={'/'}>Home Page</Link>
+      <SignOutButton />
     </div>
   )
 }
