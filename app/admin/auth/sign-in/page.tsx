@@ -1,4 +1,4 @@
-import { SignInButton } from '@/app/admin/auth/sign-in/sign-in-button'
+import { SignInButton } from '@/app/admin/auth/sign-in/SignInButton'
 import { auth } from '@/auth'
 import { redirect } from 'next/navigation'
 
