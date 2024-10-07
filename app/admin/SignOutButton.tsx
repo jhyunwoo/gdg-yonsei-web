@@ -1,6 +1,7 @@
 import { signOut } from '@/auth'
+import { FC } from 'react'
 
-export function SignOutButton() {
+const SignOutButton: FC = () => {
   return (
     <form
       action={async () => {
@@ -17,3 +18,5 @@ export function SignOutButton() {
     </form>
   )
 }
+
+export default SignOutButton

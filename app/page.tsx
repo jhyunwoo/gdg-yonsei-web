@@ -1,6 +1,7 @@
 import Link from 'next/link'
+import { FC } from 'react'
 
-export default function HomePage() {
+const HomePage: FC = () => {
   return (
     <div className={'flex flex-col h-screen w-full items-center justify-center'}>
       <h1 className={'text-4xl font-bold'}>GDG on Campus Yonsei</h1>
@@ -8,3 +9,5 @@ export default function HomePage() {
     </div>
   )
 }
+
+export default HomePage

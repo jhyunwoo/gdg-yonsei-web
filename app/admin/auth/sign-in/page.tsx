@@ -1,8 +1,9 @@
 import { SignInButton } from '@/app/admin/auth/sign-in/SignInButton'
 import { auth } from '@/auth'
 import { redirect } from 'next/navigation'
+import { FC } from 'react'
 
-export default async function SignInPage() {
+const SignInPage: FC = async () => {
   const session = await auth()
   if (session) redirect('/admin')
 
@@ -13,3 +14,5 @@ export default async function SignInPage() {
     </div>
   )
 }
+
+export default SignInPage

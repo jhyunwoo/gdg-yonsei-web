@@ -1,6 +1,7 @@
 import { signIn } from '@/auth'
+import { FC } from 'react'
 
-export function SignInButton() {
+const SignInButton: FC = () => {
   return (
     <form
       action={async () => {
@@ -12,3 +13,5 @@ export function SignInButton() {
     </form>
   )
 }
+
+export default SignInButton
