@@ -1,7 +1,7 @@
-import { SignInButton } from '@/app/admin/auth/sign-in/SignInButton'
 import { auth } from '@/auth'
 import { redirect } from 'next/navigation'
 import { FC } from 'react'
+import SignInButton from '@/app/admin/auth/sign-in/SignInButton'
 
 const SignInPage: FC = async () => {
   const session = await auth()
