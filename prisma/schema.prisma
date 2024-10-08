@@ -21,6 +21,11 @@ model User {
   name          String?
   email         String          @unique
   emailVerified DateTime?
+  role          Role            @default(USER)
+  part          String?
+  stage         String?
+  github        String?
+  linkedin      String?
   image         String?
   accounts      Account[]
   sessions      Session[]
@@ -30,6 +35,13 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  USER
+  MEMBER
+  CORE
+  LEAD
 }
 
 model Account {
@@ -85,4 +97,24 @@ model Authenticator {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, credentialID])
+}
+
+model project {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  mainImage   String
+  images      String[]
+  date        DateTime
+  parts       String[]
+}
+
+model sessionEvent {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  mainImage   String
+  images      String[]
+  date        DateTime
+  location    String?
 }
