@@ -1,5 +1,7 @@
 import { FC } from 'react'
 import SessionList from '@/app/admin/session/SessionList'
+import Link from 'next/link'
+import AdminPageTitle from '@/app/admin/session/AdminPageTitle'
 
 // TODO: 전현우 - session 관리 페이지 구현
 // TODO: 전현우 - session 추가 페이지 생성 및 구현
@@ -15,10 +17,18 @@ import SessionList from '@/app/admin/session/SessionList'
 
 const SessionPage: FC = () => {
   return (
-    <div className={'w-full min-h-screen p-4'}>
-      <h1 className={'text-3xl font-bold'}>Sessions</h1>
+    <>
+      <div className={'flex gap-4 items-center pb-4'}>
+        <AdminPageTitle>Session</AdminPageTitle>
+        <Link
+          href={'/admin/session/create'}
+          className={'text-base p-1 rounded-lg px-3 bg-sky-600 text-white hover:bg-sky-700 transition-colors'}
+        >
+          Create
+        </Link>
+      </div>
       <SessionList />
-    </div>
+    </>
   )
 }
 
