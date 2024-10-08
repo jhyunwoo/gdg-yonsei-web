@@ -14,8 +14,8 @@ import { FC } from 'react'
 
 const SessionPage: FC = () => {
   return (
-    <div>
-      <div>Session Page</div>
+    <div className={'w-full min-h-screen p-4'}>
+      <h1 className={'text-3xl font-bold'}>Sessions</h1>
     </div>
   )
 }
