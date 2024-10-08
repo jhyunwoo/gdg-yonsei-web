@@ -1,0 +1,7 @@
+import getMembers from '@/lib/server/getMembers'
+import { NextResponse } from 'next/server'
+
+export async function GET() {
+  const members = await getMembers()
+  return NextResponse.json(members)
+}
