@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import SessionList from '@/app/admin/session/SessionList'
 
 // TODO: 전현우 - session 관리 페이지 구현
 // TODO: 전현우 - session 추가 페이지 생성 및 구현
@@ -16,6 +17,7 @@ const SessionPage: FC = () => {
   return (
     <div className={'w-full min-h-screen p-4'}>
       <h1 className={'text-3xl font-bold'}>Sessions</h1>
+      <SessionList />
     </div>
   )
 }

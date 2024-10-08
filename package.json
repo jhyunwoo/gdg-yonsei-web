@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "generate": "yarn pnpify prisma generate",
-    "push": "yarn pnpify prisma db push"
+    "push": "yarn pnpify prisma db push",
+    "studio": "yarn pnpify prisma studio"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.6.0",

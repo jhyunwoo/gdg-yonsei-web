@@ -1,8 +1,14 @@
 import useSWR from 'swr'
 import fetcher from '@/lib/fetcher'
+import { Prisma } from '@prisma'
 
-export default function useSessions() {
-  const { data, error, isLoading, isValidating } = useSWR('/api/sessions', fetcher)
+type SessionType = Prisma.SessionEventMinAggregateOutputType[]
+
+export default function useSessions({ take, skip }: { take: number; skip: number }) {
+  const { data, error, isLoading, isValidating } = useSWR<SessionType>(
+    `/api/session?take=${take}&skip=${skip}`,
+    fetcher
+  )
 
   return {
     sessionData: data,
