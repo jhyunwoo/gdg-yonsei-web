@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "../globals.css";
 import { ReactNode } from "react";
 import { en } from "@/app/fonts";
 
 export const metadata: Metadata = {
-  title: "GDG on Campus Yonsei",
+  title: "GDG Yonsei Admin",
   description:
-    "Google Developer Group on Campus Yonsei University Sinchon Campus",
+    "Google Developer Group on Campus Yonsei University Sinchon Campus Admin Page",
 };
 
 export default function RootLayout({
