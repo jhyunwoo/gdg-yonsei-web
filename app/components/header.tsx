@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <div
       className={
-        "w-full p-[20px] flex justify-between items-center fixed top-0 left-0"
+        "w-full p-[20px] flex justify-between items-center fixed top-0 left-0 bg-background"
       }
     >
       <Link href={"/"}>
