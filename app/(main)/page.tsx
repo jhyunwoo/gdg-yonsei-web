@@ -45,21 +45,19 @@ function ColoredText({
  * GDG 지원 페이지로 이동할 수 있는 링크
  * @constructor
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function RecruitingLink() {
   return (
-    <div className={"gap-[10px] flex flex-col items-center justify-center"}>
-      <Link href={"/admission"} className={"text-3xl"}>
-        <ColoredText color={"blue"}>We </ColoredText>
-        <ColoredText color={"yellow"}>are</ColoredText>
-        <ColoredText color={"red"}>Recruiting</ColoredText>
-        <ColoredText color={"yellow"}>! </ColoredText>
-        <ColoredText color={"blue"}>Click </ColoredText>
-        <ColoredText color={"green"}>to </ColoredText>
-        <ColoredText color={"red"}>apply</ColoredText>
-        <ColoredText color={"blue"}>.</ColoredText>
-      </Link>
-      <Image src={"/logo/gdg.svg"} alt={"GDG Logo"} width={413} height={200} />
-    </div>
+    <Link href={"/admission"} className={"text-3xl mb-[10px]"}>
+      <ColoredText color={"blue"}>We </ColoredText>
+      <ColoredText color={"yellow"}>are</ColoredText>
+      <ColoredText color={"red"}>Recruiting</ColoredText>
+      <ColoredText color={"yellow"}>! </ColoredText>
+      <ColoredText color={"blue"}>Click </ColoredText>
+      <ColoredText color={"green"}>to </ColoredText>
+      <ColoredText color={"red"}>apply</ColoredText>
+      <ColoredText color={"blue"}>.</ColoredText>
+    </Link>
   );
 }
 
@@ -167,7 +165,13 @@ export default function HomePage() {
       }
     >
       <SectionLayout>
-        <RecruitingLink />
+        {/*<RecruitingLink />*/}
+        <Image
+          src={"/logo/gdg.svg"}
+          alt={"GDG Logo"}
+          width={413}
+          height={200}
+        />
         <SearchBar />
         <ScrollDown />
       </SectionLayout>
