@@ -3,6 +3,7 @@ import "../globals.css";
 import { ReactNode } from "react";
 import { en } from "@/app/fonts";
 import Header from "@/app/components/header";
+import Footer from "@/app/components/footer";
 
 export const metadata: Metadata = {
   title: "GDG on Campus Yonsei",
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body>
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

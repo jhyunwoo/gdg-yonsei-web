@@ -307,7 +307,7 @@ function ActivitiesSection() {
 
 function PartSection() {
   return (
-    <div className={"flex items-center w-full px-40"}>
+    <div className={"flex items-center w-full px-40 mb-96"}>
       <div className={"w-full max-w-screen-sm gap-[50px] flex flex-col"}>
         <div>
           <Link href={"/members"} className={"flex items-end gap-12"}>
