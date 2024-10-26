@@ -105,6 +105,60 @@ function ScrollDown() {
   );
 }
 
+/**
+ * GDG 소개 섹션
+ * @constructor
+ */
+function AboutSection() {
+  return (
+    <div className={"flex items-center gap-24"}>
+      <Image src={"/logo/gdg.svg"} alt={"GDG Logo"} width={377} height={197} />
+      <div className={"flex flex-col *:w-full *:max-w-2xl"}>
+        <div className={"text-6xl font-bold mb-[50px]"}>About GDG</div>
+        <div className={"mb-[10px]"}>
+          <span className={"font-bold"}>GDG (Google Developer Groups)</span> on
+          Campus is a community group of university student developers
+          interested in Google technologies, part of a program provided by
+          Google for Developers. Students in GDG engage in the process of
+          &#34;Connect - Learn - Grow,&#34; where they develop various skills
+          such as development and leadership in a peer-to-peer learning
+          environment, with the goal of building solutions for their communities
+          and society.
+        </div>
+        <div>
+          <span className={"font-bold"}>GDG Yonsei University</span> is a
+          student developer community based at Yonsei University that shares the
+          development ecosystem. It is a group of developers who not only share
+          development knowledge but also aim to achieve social innovation
+          through technology. GDG Yonsei University seeks to build solutions
+          that address real community issues using development knowledge, with
+          the goal of growing into professionals who contribute to a sustainable
+          society through IT-driven social innovation.
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * 전체 화면을 사용하는 섹션의 레이아웃
+ *
+ * 화면 전체 가로 크기, 화면 전체 세로 크기를 사용함
+ *
+ * flex flex-col items-center justify-center 를 사용하여 children 컴포넌트 배치함
+ * @param children
+ * @constructor
+ */
+function SectionLayout({ children }: { children: ReactNode }) {
+  return (
+    <div
+      className={"w-full h-screen flex flex-col items-center justify-center"}
+    >
+      {children}
+    </div>
+  );
+}
+
 export default function HomePage() {
   return (
     <div
@@ -112,47 +166,14 @@ export default function HomePage() {
         "w-full flex-col min-h-screen flex items-center justify-center"
       }
     >
-      <div
-        className={"h-screen flex flex-col items-center justify-center w-full"}
-      >
+      <SectionLayout>
         <RecruitingLink />
         <SearchBar />
         <ScrollDown />
-      </div>
-      <div className={"w-full h-screen flex items-center justify-center"}>
-        <div className={"flex items-center gap-24"}>
-          <Image
-            src={"/logo/gdg.svg"}
-            alt={"GDG Logo"}
-            width={377}
-            height={197}
-          />
-          <div className={"flex flex-col *:w-full *:max-w-2xl"}>
-            <div className={"text-6xl font-bold mb-[50px]"}>About GDG</div>
-            <div className={"mb-[10px]"}>
-              <span className={"font-bold"}>GDG (Google Developer Groups)</span>{" "}
-              on Campus is a community group of university student developers
-              interested in Google technologies, part of a program provided by
-              Google for Developers. Students in GDG engage in the process of
-              &#34;Connect - Learn - Grow,&#34; where they develop various
-              skills such as development and leadership in a peer-to-peer
-              learning environment, with the goal of building solutions for
-              their communities and society.
-            </div>
-            <div>
-              <span className={"font-bold"}>GDG Yonsei University</span> is a
-              student developer community based at Yonsei University that shares
-              the development ecosystem. It is a group of developers who not
-              only share development knowledge but also aim to achieve social
-              innovation through technology. GDG Yonsei University seeks to
-              build solutions that address real community issues using
-              development knowledge, with the goal of growing into professionals
-              who contribute to a sustainable society through IT-driven social
-              innovation.
-            </div>
-          </div>
-        </div>
-      </div>
+      </SectionLayout>
+      <SectionLayout>
+        <AboutSection />
+      </SectionLayout>
     </div>
   );
 }
