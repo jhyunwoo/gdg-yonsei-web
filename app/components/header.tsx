@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import GDGYonseiLogo from "@/app/components/gdg-yonsei-logo";
 
 export default function Header() {
   return (
@@ -9,12 +9,7 @@ export default function Header() {
       }
     >
       <Link href={"/"}>
-        <Image
-          src={"/logo/gdg-yonsei.svg"}
-          alt={"GDG Yonsei Logo"}
-          width={215}
-          height={46}
-        />
+        <GDGYonseiLogo />
       </Link>
       <div className={"gap-[20px] flex"}>
         <Link href={"/members"} className={"hover:underline"}>
