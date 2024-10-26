@@ -63,7 +63,7 @@ export default function HomePage() {
       >
         <Image
           src={"/icon/search.svg"}
-          alt={"Search Icon"}
+          alt={"Search icon"}
           width={48}
           height={48}
           className={"mx-4"}
@@ -74,7 +74,7 @@ export default function HomePage() {
         <div className={"text-3xl"}>Scroll Down</div>
         <Image
           src={"/icon/Arrow_down.svg"}
-          alt={"Arrow Down Icon"}
+          alt={"Arrow Down icon"}
           width={48}
           height={48}
         />
