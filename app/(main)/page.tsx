@@ -154,7 +154,7 @@ function SectionLayout({ children }: { children: ReactNode }) {
   return (
     <div
       className={
-        "w-full min-h-screen flex flex-col items-center justify-center pt-10 p-4"
+        "w-full min-h-screen flex flex-col items-center justify-center pt-10"
       }
     >
       {children}
@@ -307,8 +307,12 @@ function ActivitiesSection() {
 
 function PartSection() {
   return (
-    <div className={"flex items-center w-full px-40 mb-96"}>
-      <div className={"w-full max-w-screen-sm gap-[50px] flex flex-col"}>
+    <div
+      className={
+        "flex items-center justify-center w-full mb-96 overflow-x-hidden gap-11"
+      }
+    >
+      <div className={"w-full max-w-screen-sm gap-[50px] flex flex-col pl-40"}>
         <div>
           <Link href={"/members"} className={"flex items-end gap-12"}>
             <div className={"text-6xl font-bold"}>Part</div>
@@ -391,7 +395,7 @@ function PartSection() {
           </div>
         </div>
       </div>
-      <DollChainTree className={"overflow-hidden absolute -right-80"} />
+      <DollChainTree />
     </div>
   );
 }
