@@ -20,6 +20,7 @@ export default function Footer() {
           <Link
             href={"mailto:gdsc.yonsei.univ@gmail.com"}
             className={"flex items-center gap-5 hover:underline"}
+            target={"_blank"}
           >
             <MailIcon className={""} />
             <div>gdsc.yonsei.univ@gmail.com</div>
@@ -27,6 +28,7 @@ export default function Footer() {
           <Link
             href={"https://www.linkedin.com/in/gdg-yonsei-81a02b2a5/"}
             className={"flex items-center gap-5 hover:underline"}
+            target={"_blank"}
           >
             <LinkedInIcon />
             <div>go to LinkedIn</div>
@@ -34,6 +36,7 @@ export default function Footer() {
           <Link
             href={"https://www.instagram.com/gdg.yonseiuniv/"}
             className={"flex items-center gap-5 hover:underline"}
+            target={"_blank"}
           >
             <InstaIcon />
             <div>@gdg.yonseiuniv</div>

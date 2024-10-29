@@ -4,9 +4,9 @@ import { ReactNode } from "react";
 import { en } from "@/app/fonts";
 
 export const metadata: Metadata = {
-  title: "GDG Yonsei Admin",
+  title: "GDG Yonsei Management System",
   description:
-    "Google Developer Group on Campus Yonsei University Sinchon Campus Admin Page",
+    "Google Developer Group on Campus Yonsei University Sinchon Campus Management System Page",
 };
 
 export default function RootLayout({

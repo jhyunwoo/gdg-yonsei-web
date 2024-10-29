@@ -8,6 +8,13 @@
       "when": 1729821508391,
       "tag": "0000_sparkling_ma_gnuci",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1730187827025,
+      "tag": "0001_chubby_storm",
+      "breakpoints": true
     }
   ]
 }
