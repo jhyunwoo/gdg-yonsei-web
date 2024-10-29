@@ -1,11 +1,6 @@
-import Link from 'next/link'
-import { FC } from 'react'
-import Header from '../../components/header'
-
-const ProjectsPage: FC = () => {
+export default function ProjectsPage() {
   return (
-    <body>
-      <Header></Header>
+    <div>
       <section className={'min-h-[400px] m-2'}>
         <div className='w-[70%] max-w-[1300px] mx-auto my-20 flex-col'>
           <div className={''}>
@@ -35,8 +30,6 @@ const ProjectsPage: FC = () => {
           </div>
         </div>
       </section>
-    </body>
+    </div>
   )
 }
-
-export default ProjectsPage
