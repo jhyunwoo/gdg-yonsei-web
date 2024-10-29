@@ -2350,12 +2350,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20":
-  version: 20.17.0
-  resolution: "@types/node@npm:20.17.0"
+"@types/node@npm:^20.17.2":
+  version: 20.17.2
+  resolution: "@types/node@npm:20.17.2"
   dependencies:
     undici-types: "npm:~6.19.2"
-  checksum: 10c0/ccab7800a679e11a47bb66dca2a6b944b6a0abaee0ef0972569c880c32e6399f3d4155e11df480bf18bf0e61f80db65b8b11bf08bd5ee4bf96fac01953c6ede1
+  checksum: 10c0/453ca052f9544ad66a9988ff881024588008795690c9ea7252e0594333ea11cec7d176a76c5e0f6b89ba42427c6e4684321427f9f515e8a9ba9a729f80c13054
   languageName: node
   linkType: hard
 
@@ -2366,7 +2366,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18":
+"@types/react-dom@npm:^18.3.1":
   version: 18.3.1
   resolution: "@types/react-dom@npm:18.3.1"
   dependencies:
@@ -2375,7 +2375,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^18":
+"@types/react@npm:*, @types/react@npm:^18.3.12":
   version: 18.3.12
   resolution: "@types/react@npm:18.3.12"
   dependencies:
@@ -4106,7 +4106,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8":
+"eslint@npm:^8.57.1":
   version: 8.57.1
   resolution: "eslint@npm:8.57.1"
   dependencies:
@@ -4401,24 +4401,24 @@ __metadata:
   dependencies:
     "@auth/drizzle-adapter": "npm:^1.7.2"
     "@svgr/webpack": "npm:^8.1.0"
-    "@types/node": "npm:^20"
-    "@types/react": "npm:^18"
-    "@types/react-dom": "npm:^18"
+    "@types/node": "npm:^20.17.2"
+    "@types/react": "npm:^18.3.12"
+    "@types/react-dom": "npm:^18.3.1"
     babel-plugin-react-compiler: "npm:19.0.0-beta-8a03594-20241020"
     dotenv: "npm:^16.4.5"
     drizzle-kit: "npm:^0.26.2"
     drizzle-orm: "npm:^0.35.3"
-    eslint: "npm:^8"
+    eslint: "npm:^8.57.1"
     eslint-config-next: "npm:15.0.1"
     next: "npm:15.0.1"
     next-auth: "npm:^5.0.0-beta.25"
-    postcss: "npm:^8"
-    postgres: "npm:^3.4.4"
+    postcss: "npm:^8.4.47"
+    postgres: "npm:^3.4.5"
     prettier: "npm:^3.3.3"
     react: "npm:19.0.0-rc-69d4b800-20241021"
     react-dom: "npm:19.0.0-rc-69d4b800-20241021"
-    tailwindcss: "npm:^3.4.1"
-    typescript: "npm:^5"
+    tailwindcss: "npm:^3.4.14"
+    typescript: "npm:^5.6.3"
   languageName: unknown
   linkType: soft
 
@@ -5972,7 +5972,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8, postcss@npm:^8.4.23":
+"postcss@npm:^8.4.23, postcss@npm:^8.4.47":
   version: 8.4.47
   resolution: "postcss@npm:8.4.47"
   dependencies:
@@ -5983,10 +5983,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postgres@npm:^3.4.4":
-  version: 3.4.4
-  resolution: "postgres@npm:3.4.4"
-  checksum: 10c0/5c01a1501a1cb8851d981b1949bffd0a0a82ac5fd8453c410fdf4d6c0f91d01e69a42b30da2d08a77a00d6ddac0ea6ce58a1aa0dd6bd3f76e9220b1176bdfe60
+"postgres@npm:^3.4.5":
+  version: 3.4.5
+  resolution: "postgres@npm:3.4.5"
+  checksum: 10c0/53415acea77e97bdc1eeb861048f34964e2236e4d4d42f408fc9b901e62bfcf7443a487ebfdad18b57b468c6e297bf8d22097106a200f62eb1262eb5a71355df
   languageName: node
   linkType: hard
 
@@ -6808,7 +6808,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:^3.4.1":
+"tailwindcss@npm:^3.4.14":
   version: 3.4.14
   resolution: "tailwindcss@npm:3.4.14"
   dependencies:
@@ -7006,7 +7006,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5":
+"typescript@npm:^5.6.3":
   version: 5.6.3
   resolution: "typescript@npm:5.6.3"
   bin:
@@ -7016,7 +7016,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A^5.6.3#optional!builtin<compat/typescript>":
   version: 5.6.3
   resolution: "typescript@patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>::version=5.6.3&hash=8c6c40"
   bin:
