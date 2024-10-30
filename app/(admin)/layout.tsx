@@ -15,7 +15,7 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en" className={en.className}>
+    <html lang="en" className={`${en.className} bg-neutral-50`}>
       <body>{children}</body>
     </html>
   );
