@@ -3,6 +3,19 @@ import MailIcon from "@/public/icon/Mail.svg";
 import LinkedInIcon from "@/public/icon/LinkedIn.svg";
 import InstaIcon from "@/public/icon/instagram.svg";
 import Link from "next/link";
+import { ReactNode } from "react";
+
+function SocialLink({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <Link
+      href={href}
+      className={"flex items-center gap-5 hover:underline"}
+      target={"_blank"}
+    >
+      {children}
+    </Link>
+  );
+}
 
 export default function Footer() {
   return (
@@ -17,30 +30,21 @@ export default function Footer() {
           <GDGYonseiLogo />
         </div>
         <div className={"flex flex-col gap-2.5"}>
-          <Link
-            href={"mailto:gdsc.yonsei.univ@gmail.com"}
-            className={"flex items-center gap-5 hover:underline"}
-            target={"_blank"}
-          >
-            <MailIcon className={""} />
+          <SocialLink href={"mailto:gdsc.yonsei.univ@gmail.com"}>
+            <MailIcon />
             <div>gdsc.yonsei.univ@gmail.com</div>
-          </Link>
-          <Link
+          </SocialLink>
+          <SocialLink
             href={"https://www.linkedin.com/in/gdg-yonsei-81a02b2a5/"}
-            className={"flex items-center gap-5 hover:underline"}
-            target={"_blank"}
           >
             <LinkedInIcon />
             <div>go to LinkedIn</div>
-          </Link>
-          <Link
-            href={"https://www.instagram.com/gdg.yonseiuniv/"}
-            className={"flex items-center gap-5 hover:underline"}
-            target={"_blank"}
-          >
+          </SocialLink>
+          <SocialLink href={"https://www.instagram.com/gdg.yonseiuniv/"}>
             <InstaIcon />
             <div>@gdg.yonseiuniv</div>
-          </Link>
+          </SocialLink>
+
           <div className={"text-sm text-grey"}>
             Copyright ⓒ 2024. GDG on campus Yonsei All rights reserved.
           </div>
