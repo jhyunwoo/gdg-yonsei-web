@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import { auth } from "@/auth";
 import db from "@/db";
 import { users } from "@/db/schema";
@@ -20,21 +19,18 @@ export default async function Profile() {
   )[0];
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <div
-        className={
-          "bg-white border-2 rounded-xl p-3 w-fit flex flex-col border-neutral-800/80"
-        }
-      >
-        <div className={"text-lg font-semibold"}>
-          {userInfo?.firstName
-            ? `${userInfo.lastName} ${userInfo.firstName}`
-            : userInfo.name}
-        </div>
-        <div>{userInfo.email}</div>
-        <div>{userInfo.role?.toUpperCase()}</div>
-        <SignOutButton />
+    <div
+      className={
+        "bg-white border-2 rounded-xl break-normal p-3 flex flex-col border-neutral-800/80 w-full"
+      }
+    >
+      <div className={"text-lg font-semibold"}>
+        {userInfo?.firstName
+          ? `${userInfo.lastName} ${userInfo.firstName}`
+          : userInfo.name}
       </div>
-    </Suspense>
+      <div>{userInfo.role?.toUpperCase()}</div>
+      <SignOutButton />
+    </div>
   );
 }
