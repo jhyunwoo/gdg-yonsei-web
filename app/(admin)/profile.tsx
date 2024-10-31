@@ -23,7 +23,7 @@ export default async function Profile() {
     <Suspense fallback={<div>Loading...</div>}>
       <div
         className={
-          "bg-white ring-2 rounded-lg p-2 w-fit flex flex-col ring-neutral-400"
+          "bg-white border-2 rounded-xl p-3 w-fit flex flex-col border-neutral-800/80"
         }
       >
         <div className={"text-lg font-semibold"}>{userInfo.name}</div>

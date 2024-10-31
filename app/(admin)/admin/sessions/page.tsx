@@ -1,7 +1,9 @@
+import AdminPageLayout from "@/app/components/admin-page-layout";
+
 export default function SessionsPage() {
   return (
-    <div className={"w-full min-h-screen p-4"}>
+    <AdminPageLayout>
       <div>Sessions Page</div>
-    </div>
+    </AdminPageLayout>
   );
 }

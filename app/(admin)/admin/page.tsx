@@ -1,9 +1,12 @@
+import AdminPageLayout from "@/app/components/admin-page-layout";
+
 export default function AdminPage() {
   return (
-    <div className={"w-full min-h-screen p-4"}>
+    <AdminPageLayout>
       <div className={"text-3xl font-bold"}>
-        GDG on Campus Yonsei Management System
+        <div>GDG on Campus Yonsei</div>
+        <div>Management System</div>
       </div>
-    </div>
+    </AdminPageLayout>
   );
 }

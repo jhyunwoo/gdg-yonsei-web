@@ -2,6 +2,32 @@ import Link from "next/link";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import Profile from "@/app/(admin)/profile";
+import {
+  CalendarDaysIcon,
+  FolderIcon,
+  HomeIcon,
+  UsersIcon,
+} from "@heroicons/react/24/outline";
+import { ReactNode } from "react";
+
+function NavigationButton({
+  children,
+  href,
+}: {
+  children: ReactNode;
+  href: string;
+}) {
+  return (
+    <Link
+      className={
+        "hover:bg-neutral-200 transition-colors flex items-center gap-2"
+      }
+      href={href}
+    >
+      {children}
+    </Link>
+  );
+}
 
 export default async function Sidebar() {
   const session = await auth();
@@ -9,7 +35,7 @@ export default async function Sidebar() {
 
   return (
     <div className={"h-screen bg-neutral-100 p-4 flex flex-col gap-2"}>
-      <Link href={"/admin"} className={"text-2xl font-bold"}>
+      <Link href={"/admin"} className={"text-3xl font-bold"}>
         GYMS
       </Link>
       <Profile />
@@ -18,30 +44,22 @@ export default async function Sidebar() {
           "flex flex-col gap-2 *:p-2 *:px-3 *:rounded-xl *:bg-white pt-4 *:text-xl *:font-semibold "
         }
       >
-        <Link
-          className={"hover:bg-neutral-200  transition-colors"}
-          href={"/admin"}
-        >
-          Home
-        </Link>
-        <Link
-          className={"hover:bg-neutral-200  transition-colors"}
-          href={"/admin/members"}
-        >
-          Members
-        </Link>
-        <Link
-          className={"hover:bg-neutral-200 transition-colors"}
-          href={"/admin/projects"}
-        >
-          Projects
-        </Link>
-        <Link
-          className={"hover:bg-neutral-200 transition-colors"}
-          href={"/admin/sessions"}
-        >
-          Sessions
-        </Link>
+        <NavigationButton href={"/admin"}>
+          <HomeIcon className={"size-6"} />
+          <p>Home</p>
+        </NavigationButton>
+        <NavigationButton href={"/admin/members"}>
+          <UsersIcon className={"size-6"} />
+          <p>Members</p>
+        </NavigationButton>
+        <NavigationButton href={"/admin/projects"}>
+          <FolderIcon className={"size-6"} />
+          <p>Projects</p>
+        </NavigationButton>
+        <NavigationButton href={"/admin/sessions"}>
+          <CalendarDaysIcon className={"size-6"} />
+          <p>Sessions</p>
+        </NavigationButton>
       </div>
     </div>
   );

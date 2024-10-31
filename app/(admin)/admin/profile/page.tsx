@@ -1,7 +1,9 @@
+import AdminPageLayout from "@/app/components/admin-page-layout";
+
 export default async function ProfilePage() {
   return (
-    <div>
+    <AdminPageLayout>
       <div>Profile Page</div>
-    </div>
+    </AdminPageLayout>
   );
 }
