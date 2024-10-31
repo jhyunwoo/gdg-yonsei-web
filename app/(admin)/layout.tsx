@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import "../globals.css";
 import { ReactNode } from "react";
-import { en } from "@/app/fonts";
+import { LoadingStoreProvider } from "@/app/components/loading-store-provider";
+import LoadingAlert from "@/app/components/loading-alert";
 
 export const metadata: Metadata = {
   title: "GDG Yonsei Management System",
@@ -15,8 +16,13 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${en.className} bg-neutral-50`}>
-      <body>{children}</body>
+    <html lang="en" className={`bg-neutral-50`}>
+      <body>
+        <LoadingStoreProvider>
+          {children}
+          <LoadingAlert />
+        </LoadingStoreProvider>
+      </body>
     </html>
   );
 }

@@ -6,12 +6,15 @@ import Link from "next/link";
 import useMembers from "@/lib/hooks/useMembers";
 import { useState } from "react";
 import ConfigButton from "@/app/components/config-button";
+import { useLoadingStore } from "@/app/components/loading-store-provider";
 
 export default function MembersPage() {
   const { membersData, mutateMembers } = useMembers();
   const [selected, setSelected] = useState<string[]>([]);
+  const { setLoading, clearLoading } = useLoadingStore((state) => state);
 
   async function deleteMembers() {
+    setLoading("Deleting members...");
     const requestDeleteMembers = await fetch("/api/members/unaccepted", {
       method: "PUT",
       body: JSON.stringify({
@@ -23,8 +26,10 @@ export default function MembersPage() {
     await mutateMembers();
 
     console.log(result);
+    clearLoading();
   }
   async function activeMembers() {
+    setLoading("Activating members...");
     const requestDeleteMembers = await fetch("/api/members/active", {
       method: "PUT",
       body: JSON.stringify({
@@ -36,8 +41,10 @@ export default function MembersPage() {
     await mutateMembers();
 
     console.log(result);
+    clearLoading();
   }
   async function alumniMembers() {
+    setLoading("Change members to Alumni...");
     const requestDeleteMembers = await fetch("/api/members/active", {
       method: "PUT",
       body: JSON.stringify({
@@ -49,6 +56,7 @@ export default function MembersPage() {
     await mutateMembers();
 
     console.log(result);
+    clearLoading();
   }
 
   return (
