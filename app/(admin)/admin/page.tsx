@@ -5,7 +5,6 @@ export default function AdminPage() {
     <AdminPageLayout>
       <div className={"text-3xl font-bold"}>
         <div>GDG on Campus Yonsei</div>
-        <div>Management System</div>
       </div>
     </AdminPageLayout>
   );

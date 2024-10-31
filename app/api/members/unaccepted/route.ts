@@ -1,7 +1,7 @@
 import validateUserAccess from "@/lib/validate-user-access";
 import db from "@/db";
 import { users } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -16,4 +16,17 @@ export async function GET() {
     // 권한 없으면 데이터 조회 거부
     return NextResponse.json({ error: "Permission Denied" }, { status: 403 });
   }
+}
+
+export async function PUT(request: Request) {
+  const checkPermission = await validateUserAccess(["core", "lead"]);
+  if (!checkPermission)
+    return NextResponse.json({ error: "Permission Denied" }, { status: 403 });
+
+  const res = await request.json();
+  await db
+    .update(users)
+    .set({ verified: false })
+    .where(inArray(users.id, res.members));
+  return NextResponse.json({ result: "Delete Members" });
 }

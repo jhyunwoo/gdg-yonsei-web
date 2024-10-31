@@ -5,9 +5,27 @@ import MemberList from "@/app/components/member-list";
 import Link from "next/link";
 import useUnacceptedMembers from "@/lib/hooks/useUnacceptedMembers";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
+import { useState } from "react";
+import ConfigButton from "@/app/components/config-button";
 
 export default function AcceptMembersPage() {
-  const { unacceptedMembersData } = useUnacceptedMembers();
+  const { unacceptedMembersData, mutateUnacceptedMembers } =
+    useUnacceptedMembers();
+  const [selected, setSelected] = useState<string[]>([]);
+
+  async function acceptMembers() {
+    const requestAcceptMembers = await fetch("/api/members/accept", {
+      method: "PUT",
+      body: JSON.stringify({
+        members: selected,
+      }),
+    });
+    const result = await requestAcceptMembers.json();
+    setSelected([]);
+    await mutateUnacceptedMembers();
+    console.log(result);
+  }
+
   return (
     <AdminPageLayout>
       <div className={"flex gap-2 items-center pb-2"}>
@@ -22,7 +40,24 @@ export default function AcceptMembersPage() {
         </Link>
         <div className={"text-2xl font-bold"}>Accept Members</div>
       </div>
-      <MemberList membersData={unacceptedMembersData!} />
+      <div className={`flex items-center justify-start gap-2`}>
+        <ConfigButton
+          onClick={acceptMembers}
+          className={`${selected.length > 0 ? "bg-green" : "bg-green/50"}`}
+          disabled={selected.length <= 0}
+        >
+          Accept
+        </ConfigButton>
+      </div>
+      {unacceptedMembersData && unacceptedMembersData.length > 0 ? (
+        <MemberList
+          membersData={unacceptedMembersData!}
+          state={selected}
+          setState={setSelected}
+        />
+      ) : (
+        <p className={"w-full p-2 text-center text-lg"}>No Members!</p>
+      )}
     </AdminPageLayout>
   );
 }

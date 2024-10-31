@@ -26,7 +26,11 @@ export default async function Profile() {
           "bg-white border-2 rounded-xl p-3 w-fit flex flex-col border-neutral-800/80"
         }
       >
-        <div className={"text-lg font-semibold"}>{userInfo.name}</div>
+        <div className={"text-lg font-semibold"}>
+          {userInfo?.firstName
+            ? `${userInfo.lastName} ${userInfo.firstName}`
+            : userInfo.name}
+        </div>
         <div>{userInfo.email}</div>
         <div>{userInfo.role?.toUpperCase()}</div>
         <SignOutButton />
