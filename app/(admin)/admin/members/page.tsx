@@ -32,7 +32,6 @@ export default function MembersPage() {
         members: selected,
       }),
     });
-    setSelected([]);
     const result = await requestDeleteMembers.json();
     await mutateMembers();
 
@@ -46,7 +45,6 @@ export default function MembersPage() {
         members: selected,
       }),
     });
-    setSelected([]);
     const result = await requestDeleteMembers.json();
     await mutateMembers();
 

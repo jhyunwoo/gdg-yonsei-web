@@ -43,7 +43,7 @@ export default function MemberList({
           <button
             type={"button"}
             onClick={() => handleSelect(data.id)}
-            className={`col-span-8 w-full p-2 rounded-xl grid content-center grid-cols-8 place-items-start hover:ring-2 ring-sky-500 transition-all ${state.includes(data.id) ? "bg-sky-200 hover:bg-sky-300" : "bg-white hover:bg-sky-100"}`}
+            className={`col-span-8 w-full p-2 rounded-xl grid content-center grid-cols-8 place-items-start hover:ring-2 ring-sky-500 transition-all ${state.includes(data.id) ? "bg-sky-200" : "bg-white"}`}
           >
             <div className={"col-span-2 break-words"}>{data.email}</div>
             <div>{data?.firstName}</div>
