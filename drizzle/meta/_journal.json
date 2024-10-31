@@ -15,6 +15,27 @@
       "when": 1730187827025,
       "tag": "0001_chubby_storm",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1730344524400,
+      "tag": "0002_gray_proemial_gods",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1730345172822,
+      "tag": "0003_peaceful_sue_storm",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1730350017568,
+      "tag": "0004_free_spot",
+      "breakpoints": true
     }
   ]
 }

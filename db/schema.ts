@@ -16,6 +16,8 @@ export const users = pgTable("user", {
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
   name: text("name"),
+  firstName: text("firstName"),
+  lastName: text("lastName"),
   email: text("email").unique(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
@@ -25,6 +27,8 @@ export const users = pgTable("user", {
   githubId: text("githubId"),
   linkedInId: text("linkedinId"),
   instagramId: text("instagramId"),
+  verified: boolean().default(false).notNull(),
+  active: boolean().default(true).notNull(),
 });
 
 export const accounts = pgTable(
