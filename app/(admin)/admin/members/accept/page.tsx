@@ -7,13 +7,16 @@ import useUnacceptedMembers from "@/lib/hooks/useUnacceptedMembers";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import ConfigButton from "@/app/components/config-button";
+import { useLoadingStore } from "@/app/components/loading-store-provider";
 
 export default function AcceptMembersPage() {
   const { unacceptedMembersData, mutateUnacceptedMembers } =
     useUnacceptedMembers();
   const [selected, setSelected] = useState<string[]>([]);
+  const { setLoading, clearLoading } = useLoadingStore((state) => state);
 
   async function acceptMembers() {
+    setLoading("Accepting members...");
     const requestAcceptMembers = await fetch("/api/members/accept", {
       method: "PUT",
       body: JSON.stringify({
@@ -24,6 +27,7 @@ export default function AcceptMembersPage() {
     setSelected([]);
     await mutateUnacceptedMembers();
     console.log(result);
+    clearLoading();
   }
 
   return (
