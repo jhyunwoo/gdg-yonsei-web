@@ -9,7 +9,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       <SidebarStoreProvider>
         <Sidebar />
         <NavBar />
-        {children}w
+        {children}
       </SidebarStoreProvider>
     </div>
   );

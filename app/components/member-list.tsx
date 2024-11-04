@@ -26,7 +26,7 @@ export default function MemberList({
   return (
     <div className={"flex flex-col gap-1 mt-6"}>
       <div className={"flex gap-1 items-center"}>
-        <div className={"w-12"}>Edit</div>
+        <div className={"w-12"}>Info</div>
         <div
           className={
             "grid grid-cols-2 md:grid-cols-4 xl:grid-cols-8 place-items-start content-center w-full"
@@ -47,7 +47,7 @@ export default function MemberList({
             href={`/admin/members/${data.id}`}
             className={"text-center p-1 px-2 rounded-lg bg-neutral-200"}
           >
-            Edit
+            Info
           </Link>
           <button
             type={"button"}

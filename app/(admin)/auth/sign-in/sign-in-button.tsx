@@ -15,6 +15,7 @@ export default function SignInButton() {
         setLoading(true);
         signIn("github", { redirect: true, redirectTo: "/admin" });
       }}
+      disabled={loading}
     >
       {loading ? <Cog6ToothIcon className={"size-6 animate-spin"} /> : null}
       <p>Sign in with Github</p>
