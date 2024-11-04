@@ -11,7 +11,6 @@ export async function PUT(request: Request) {
 
   const res = await request.json();
 
-  console.log(res);
   await db
     .update(users)
     .set({ active: res.active })
