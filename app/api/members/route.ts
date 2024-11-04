@@ -1,7 +1,7 @@
 import db from "@/db";
 import { users } from "@/db/schema";
 import { NextResponse } from "next/server";
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import validateUserAccess from "@/lib/validate-user-access";
 
 export async function GET() {
@@ -10,7 +10,8 @@ export async function GET() {
     const membersList = await db
       .select()
       .from(users)
-      .where(eq(users.verified, true));
+      .where(eq(users.verified, true))
+      .orderBy(desc(users.generation));
     return NextResponse.json(membersList);
   } else {
     // 권한 없으면 데이터 조회 거부

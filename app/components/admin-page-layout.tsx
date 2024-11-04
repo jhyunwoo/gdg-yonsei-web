@@ -16,7 +16,9 @@ export default function AdminPageLayout({
   className?: string;
 }) {
   return (
-    <div className={`w-full min-h-screen p-4 flex flex-col ${className}`}>
+    <div
+      className={`w-full min-h-screen p-4 lg:pl-64 flex flex-col ${className} pt-20 lg:pt-4`}
+    >
       {children}
     </div>
   );

@@ -8,33 +8,15 @@ import {
   HomeIcon,
   UsersIcon,
 } from "@heroicons/react/24/outline";
-import { ReactNode } from "react";
-
-function NavigationButton({
-  children,
-  href,
-}: {
-  children: ReactNode;
-  href: string;
-}) {
-  return (
-    <Link
-      className={
-        "hover:bg-neutral-200 transition-colors flex items-center gap-2"
-      }
-      href={href}
-    >
-      {children}
-    </Link>
-  );
-}
+import SidebarController from "@/app/components/sidebar-controller";
+import NavigationButton from "@/app/components/navigation-button";
 
 export default async function Sidebar() {
   const session = await auth();
   if (!session?.user?.id) redirect("/auth/sign-in");
 
   return (
-    <div className={"h-screen bg-neutral-100 p-4 flex flex-col gap-2"}>
+    <SidebarController>
       <Link href={"/admin"} className={"text-3xl font-bold"}>
         GYMS
       </Link>
@@ -61,6 +43,6 @@ export default async function Sidebar() {
           <p>Sessions</p>
         </NavigationButton>
       </div>
-    </div>
+    </SidebarController>
   );
 }
