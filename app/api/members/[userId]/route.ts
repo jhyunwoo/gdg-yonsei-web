@@ -21,3 +21,28 @@ export async function GET(
 
   return NextResponse.json(userData);
 }
+
+export async function PUT(
+  request: Request,
+  { params }: { params: Promise<{ userId: string }> },
+) {
+  const checkPermission = await validateUserAccess(["core", "lead"]);
+  if (!checkPermission)
+    return NextResponse.json({ error: "Permission Denied" }, { status: 403 });
+
+  const res = await request.json();
+
+  await db
+    .update(users)
+    .set({
+      name: res.name,
+      firstName: res.firstName,
+      lastName: res.lastName,
+      part: res.part,
+      generation: res.generation,
+      role: res.role,
+      active: res.state,
+    })
+    .where(eq(users.id, (await params).userId));
+  return NextResponse.json({ message: "User updated" });
+}
