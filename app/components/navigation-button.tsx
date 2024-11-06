@@ -2,7 +2,7 @@
 
 import { ReactNode } from "react";
 import Link from "next/link";
-import { useSidebarStore } from "@/app/components/sidebar-store-provider";
+import { useSidebar } from "@/lib/stores/sidebar";
 
 export default function NavigationButton({
   children,
@@ -11,14 +11,14 @@ export default function NavigationButton({
   children: ReactNode;
   href: string;
 }) {
-  const { setSideBar } = useSidebarStore((state) => state);
+  const { close } = useSidebar((state) => state);
 
   return (
     <Link
       className={
         "hover:bg-neutral-200 transition-colors flex items-center gap-2"
       }
-      onClick={() => setSideBar(false)}
+      onClick={close}
       href={href}
     >
       {children}

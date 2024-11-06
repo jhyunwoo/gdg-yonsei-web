@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "../globals.css";
 import { ReactNode } from "react";
-import { LoadingStoreProvider } from "@/app/components/loading-store-provider";
 import LoadingAlert from "@/app/components/loading-alert";
 
 export const metadata: Metadata = {
@@ -18,10 +17,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`bg-neutral-50`}>
       <body>
-        <LoadingStoreProvider>
-          {children}
-          <LoadingAlert />
-        </LoadingStoreProvider>
+        {children}
+        <LoadingAlert />
       </body>
     </html>
   );

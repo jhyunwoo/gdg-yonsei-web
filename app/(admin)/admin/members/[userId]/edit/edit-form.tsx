@@ -81,7 +81,7 @@ export default function EditForm({ userId }: { userId: string }) {
               type={"button"}
               onClick={() => setValue("part", data)}
               className={
-                "bg-neutral-100 p-1 px-2 rounded-lg ring-2 ring-neutral-500"
+                "bg-neutral-100 p-1 px-2 rounded-lg ring-2 ring-neutral-500 text-sm"
               }
             >
               {data}

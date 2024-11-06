@@ -6,15 +6,15 @@ import Link from "next/link";
 import useMembers from "@/lib/hooks/useMembers";
 import { useState } from "react";
 import ConfigButton from "@/app/components/config-button";
-import { useLoadingStore } from "@/app/components/loading-store-provider";
+import { useLoading } from "@/lib/stores/loading";
 
 export default function MembersPage() {
   const { membersData, mutateMembers } = useMembers();
   const [selected, setSelected] = useState<string[]>([]);
-  const { setLoading, clearLoading } = useLoadingStore((state) => state);
+  const { setLoading, clearLoading } = useLoading((state) => state);
 
   async function deleteMembers() {
-    setLoading("Deleting members...");
+    setLoading("Deleting members...", "message");
     const requestDeleteMembers = await fetch("/api/members/unaccepted", {
       method: "PUT",
       body: JSON.stringify({
@@ -29,7 +29,7 @@ export default function MembersPage() {
     clearLoading();
   }
   async function activeMembers() {
-    setLoading("Activating members...");
+    setLoading("Activating members...", "message");
     const requestDeleteMembers = await fetch("/api/members/active", {
       method: "PUT",
       body: JSON.stringify({
@@ -44,7 +44,7 @@ export default function MembersPage() {
     clearLoading();
   }
   async function alumniMembers() {
-    setLoading("Change members to Alumni...");
+    setLoading("Change members to Alumni...", "message");
     const requestDeleteMembers = await fetch("/api/members/active", {
       method: "PUT",
       body: JSON.stringify({

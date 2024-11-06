@@ -1,16 +1,15 @@
 "use client";
 
 import { Bars3Icon } from "@heroicons/react/24/outline";
-import { useSidebarStore } from "@/app/components/sidebar-store-provider";
+import { useSidebar } from "@/lib/stores/sidebar";
 
 export default function NavButton() {
-  const { setSideBar, open } = useSidebarStore((state) => state);
-
+  const { setIsOpen, isOpen } = useSidebar((state) => state);
   return (
     <button
       type={"button"}
       onClick={() => {
-        setSideBar(!open);
+        setIsOpen(!isOpen);
       }}
     >
       <Bars3Icon className={"size-8"} />

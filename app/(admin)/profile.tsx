@@ -3,6 +3,7 @@ import db from "@/db";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import SignOutButton from "@/app/components/sign-out-button";
+import Link from "next/link";
 
 export default async function Profile() {
   const session = await auth();
@@ -21,7 +22,7 @@ export default async function Profile() {
   return (
     <div
       className={
-        "bg-white border-2 rounded-xl break-normal p-3 flex flex-col border-neutral-800/80 w-full"
+        "bg-white border-2 rounded-xl break-normal p-3 flex flex-col border-neutral-800/80 w-full hover:bg-neutral-100 transition-colors"
       }
     >
       <div className={"text-lg font-semibold"}>
@@ -30,7 +31,17 @@ export default async function Profile() {
           : userInfo.name}
       </div>
       <div>{userInfo.role?.toUpperCase()}</div>
-      <SignOutButton />
+      <div className={"flex flex-col gap-1"}>
+        <Link
+          href={"/admin/profile"}
+          className={
+            "w-full p-1 bg-neutral-950 text-white text-center rounded-lg"
+          }
+        >
+          Profile
+        </Link>
+        <SignOutButton />
+      </div>
     </div>
   );
 }

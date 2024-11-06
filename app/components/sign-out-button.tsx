@@ -8,7 +8,7 @@ export default function SignOutButton() {
   return (
     <button
       className={
-        "w-full p-1 px-2 rounded-lg bg-neutral-900 text-white mt-2 text-sm hover:bg-neutral-700 transition-colors"
+        "w-full p-1 px-2 rounded-lg bg-neutral-100 text-sm hover:bg-neutral-200 border-2 border-neutral-500 transition-colors"
       }
       disabled={loading}
       onClick={() => {
