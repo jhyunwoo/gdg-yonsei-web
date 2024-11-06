@@ -19,7 +19,7 @@ export default function SearchBar() {
         height={48}
         className={"mx-4"}
       />
-      <div className={"text-3xl py-1"}>Curious about who we are?</div>
+      <div className={"text-xl py-1 text-grey"}>Curious about who we are?</div>
     </div>
   );
 }
