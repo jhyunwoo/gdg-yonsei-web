@@ -5,7 +5,11 @@ import Chip from '@/app/components/project-page/chip';
 import CarouselComponent from '@/app/components/project-page/carouselComponent'
 import Link from "next/link";
 
-const projectData: {[key: string]: any}  = {
+const projectData: {
+  name: string;
+  description: string;
+  contributors: string[];
+} = {
   name: 'Project Name',
   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fringilla nulla sit amet feugiat elementum. Donec facilisis pretium vulputate. Vestibulum quis elit ex. Quisque molestie dui nec faucibus condimentum. Morbi convallis dapibus tortor id volutpat. In hac habitasse platea dictumst. Maecenas eu quam quis eros fermentum consectetur. Fusce et justo vel diam vehicula condimentum.',
   contributors: ['김구글', '박구글', '윤구글'],
@@ -37,7 +41,7 @@ const ProjectDescPage: FC = () => {
             {/* Contributors */}
             <h1 className={"text-2xl"}>Contributors</h1>
             <div className={'flex flex-row gap-2'}>
-              {projectData['contributors'].map((contributor: string, index: string) => (
+              {projectData['contributors'].map((contributor, index) => (
                 <Chip key={index} text={contributor} />
               ))}
             </div>
