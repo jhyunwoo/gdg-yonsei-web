@@ -48,12 +48,37 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auth/drizzle-adapter@npm:^1.7.2":
-  version: 1.7.2
-  resolution: "@auth/drizzle-adapter@npm:1.7.2"
+"@auth/core@npm:0.37.3":
+  version: 0.37.3
+  resolution: "@auth/core@npm:0.37.3"
   dependencies:
-    "@auth/core": "npm:0.37.2"
-  checksum: 10c0/b635bfc413d2d08c21c2d1fa6e035c2bd1afaacf2b4ea92f9ad56d97e1eef23367f14007ddad05279f8305ad1f704f6208e846ed64c04047af898d272dcc313c
+    "@panva/hkdf": "npm:^1.2.1"
+    cookie: "npm:1.0.1"
+    jose: "npm:^5.9.6"
+    oauth4webapi: "npm:^3.1.1"
+    preact: "npm:10.24.3"
+    preact-render-to-string: "npm:6.5.11"
+  peerDependencies:
+    "@simplewebauthn/browser": ^9.0.1
+    "@simplewebauthn/server": ^9.0.2
+    nodemailer: ^6.8.0
+  peerDependenciesMeta:
+    "@simplewebauthn/browser":
+      optional: true
+    "@simplewebauthn/server":
+      optional: true
+    nodemailer:
+      optional: true
+  checksum: 10c0/331850b05978a5e605a457e2fbaa4d8c6f0df910e48954cde4981b632e48aa43b4dc2c18535f219d152cc102eecf1aa7db78e930d217c24dbcc458fcc86c8598
+  languageName: node
+  linkType: hard
+
+"@auth/drizzle-adapter@npm:^1.7.3":
+  version: 1.7.3
+  resolution: "@auth/drizzle-adapter@npm:1.7.3"
+  dependencies:
+    "@auth/core": "npm:0.37.3"
+  checksum: 10c0/2bded7f6c14bf688393e71ffe6f5e19ab42861ec53bc7b76b6e727be2d36abe9c850781f1d4c8e787a7bcaefaae4e3ba2c7224df581ca3406bec4dd4cb58f598
   languageName: node
   linkType: hard
 
@@ -2427,12 +2452,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20.17.5":
-  version: 20.17.5
-  resolution: "@types/node@npm:20.17.5"
+"@types/node@npm:^20.17.6":
+  version: 20.17.6
+  resolution: "@types/node@npm:20.17.6"
   dependencies:
     undici-types: "npm:~6.19.2"
-  checksum: 10c0/6e6bf7f84365a2ee95a369c48cdb47a93aae2b5029d19660183ba944d7bdbc193e54167076d64a3a11ff28e307b84c90eda350edf8e2029195d1fc27ae6055f4
+  checksum: 10c0/5918c7ff8368bbe6d06d5e739c8ae41a9db41628f28760c60cda797be7d233406f07c4d0e6fdd960a0a342ec4173c2217eb6624e06bece21c1f1dd1b92805c15
   languageName: node
   linkType: hard
 
@@ -3201,6 +3226,13 @@ __metadata:
   version: 0.7.1
   resolution: "cookie@npm:0.7.1"
   checksum: 10c0/5de60c67a410e7c8dc8a46a4b72eb0fe925871d057c9a5d2c0e8145c4270a4f81076de83410c4d397179744b478e33cd80ccbcc457abf40a9409ad27dcd21dde
+  languageName: node
+  linkType: hard
+
+"cookie@npm:1.0.1":
+  version: 1.0.1
+  resolution: "cookie@npm:1.0.1"
+  checksum: 10c0/80afdcad7fe9cab7a0ea1802629f6f4cf9ff957e9489daa7a813e3ac4ca842b0e5ab3f8e6a6ddc1f3f5c771b81c229afd6f0f3c083025d68c48d214ea8fb1097
   languageName: node
   linkType: hard
 
@@ -4463,10 +4495,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "gdg-yonsei-web@workspace:."
   dependencies:
-    "@auth/drizzle-adapter": "npm:^1.7.2"
+    "@auth/drizzle-adapter": "npm:^1.7.3"
     "@heroicons/react": "npm:^2.1.5"
     "@svgr/webpack": "npm:^8.1.0"
-    "@types/node": "npm:^20.17.5"
+    "@types/node": "npm:^20.17.6"
     "@types/react": "npm:^18.3.12"
     "@types/react-dom": "npm:^18.3.1"
     babel-plugin-react-compiler: "npm:19.0.0-beta-8a03594-20241020"
@@ -5079,7 +5111,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jose@npm:^5.9.3":
+"jose@npm:^5.9.3, jose@npm:^5.9.6":
   version: 5.9.6
   resolution: "jose@npm:5.9.6"
   checksum: 10c0/d6bcd8c7d655b5cda8e182952a76f0c093347f5476d74795405bb91563f7ab676f61540310dd4b1531c60d685335ceb600571a409551d2cbd2ab3e9f9fbf1e4d
@@ -5668,7 +5700,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"oauth4webapi@npm:^3.0.0":
+"oauth4webapi@npm:^3.0.0, oauth4webapi@npm:^3.1.1":
   version: 3.1.2
   resolution: "oauth4webapi@npm:3.1.2"
   checksum: 10c0/9661df38aa1ad3c71d63831538277d877606c272dd76f5ba7c263d826d48521d62e678fe8dde5cbe6d1673457a1afbf3fbf44aa1adea480d25e37fd73ce01907
@@ -6012,10 +6044,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"preact-render-to-string@npm:6.5.11":
+  version: 6.5.11
+  resolution: "preact-render-to-string@npm:6.5.11"
+  peerDependencies:
+    preact: ">=10"
+  checksum: 10c0/a68b704c1343756022fb41322154b45e39f6021b940cbc97e86c292627d017d019700339a17d67b42c308b14fc5323fc120c798f785d6a3e993c8f273610bfe2
+  languageName: node
+  linkType: hard
+
 "preact@npm:10.11.3":
   version: 10.11.3
   resolution: "preact@npm:10.11.3"
   checksum: 10c0/44f342de226a89b53a7156fad0d4192bfc8233a5cc3eb46162f53d3c0c1c2956222d997927c7dff20f52c3592f112cefec5adac64f0477cbd8370fb39126ef7b
+  languageName: node
+  linkType: hard
+
+"preact@npm:10.24.3":
+  version: 10.24.3
+  resolution: "preact@npm:10.24.3"
+  checksum: 10c0/c863df6d7be6a660480189762d8a8f2d4148733fc2bb9efbd9d2fd27315d2c7ede850a16077d716c91666c915c0349bd3c9699733e4f08457226a0519f408761
   languageName: node
   linkType: hard
 
