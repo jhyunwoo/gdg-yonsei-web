@@ -2,13 +2,15 @@
 
 // components/Carousel.js
 import React, { useState } from 'react';
-import '@/app/css/carousel.css'
+import '@/app/css/carousel.css';
+import Image from 'next/image';
+import { FC } from 'react';
 
 interface CarouselProps {
   images: string[];
 }
 
-const Carousel: React.FC<CarouselProps> = ({ images }) => {
+const Carousel: FC<CarouselProps> = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const prevImage = () => {
@@ -24,10 +26,12 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
       <button onClick={prevImage} className="carousel-button">◀</button>
       <div className="carousel-images">
         {images.map((image, index) => (
-          <img
+          <Image
             key={index}
             src={image}
             alt={`Slide ${index}`}
+            height={700}
+            width={1300}
             className={`carousel-image ${index === currentIndex ? 'active' : ''}`}
           />
         ))}

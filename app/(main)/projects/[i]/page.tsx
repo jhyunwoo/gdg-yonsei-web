@@ -1,24 +1,24 @@
 // pages/[i]/page.tsx
 
-import React from 'react';
+import React, { FC } from 'react';
 import Chip from '@/app/components/project-page/chip';
 import CarouselComponent from '@/app/components/project-page/carouselComponent'
 import Link from "next/link";
 
-const projectData: any = {
+const projectData: {[key: string]: any}  = {
   name: 'Project Name',
   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fringilla nulla sit amet feugiat elementum. Donec facilisis pretium vulputate. Vestibulum quis elit ex. Quisque molestie dui nec faucibus condimentum. Morbi convallis dapibus tortor id volutpat. In hac habitasse platea dictumst. Maecenas eu quam quis eros fermentum consectetur. Fusce et justo vel diam vehicula condimentum.',
   contributors: ['김구글', '박구글', '윤구글'],
 };
 
-const images: any = [
+const images: string[] = [
   'https://flowbite.com/docs/images/carousel/carousel-1.svg',
   'https://flowbite.com/docs/images/carousel/carousel-2.svg',
   'https://flowbite.com/docs/images/carousel/carousel-3.svg',
   // Add more image URLs as needed
 ];
 
-const ProjectDescPage: React.FC = () => {
+const ProjectDescPage: FC = () => {
   return (
     <section className={'min-h-[400px] m-2 mt-[90px]'}>
       {/* Page header */}
@@ -32,13 +32,12 @@ const ProjectDescPage: React.FC = () => {
             {/* Carousel */}
             <CarouselComponent images={images}></CarouselComponent>
             
-            {/* Mini carousel */}
-            <CarouselComponent images={images}></CarouselComponent>
+            {/* TODO Mini carousel for image selection */}
 
             {/* Contributors */}
             <h1 className={"text-2xl"}>Contributors</h1>
             <div className={'flex flex-row gap-2'}>
-              {projectData['contributors'].map((contributor, index) => (
+              {projectData['contributors'].map((contributor: string, index: string) => (
                 <Chip key={index} text={contributor} />
               ))}
             </div>
