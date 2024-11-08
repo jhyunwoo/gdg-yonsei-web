@@ -3,7 +3,6 @@ import Image from "next/image";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import PasskeyButton from "@/app/(admin)/auth/sign-in/passkey-button";
-import AuthProvider from "@/app/(admin)/auth/sign-in/auth-provider";
 
 export default async function SignInPage() {
   const session = await auth();
@@ -30,10 +29,18 @@ export default async function SignInPage() {
             <div>Management System</div>
           </div>
         </div>
-        <SignInButton />
-        <AuthProvider>
+        <div
+          className={
+            "flex flex-col items-center justify-center gap-2 w-full max-w-sm px-4"
+          }
+        >
+          <SignInButton />
           <PasskeyButton />
-        </AuthProvider>
+          <p className={"text-sm text-center text-neutral-900"}>
+            To Sign in with a passkey, you must first log in with GitHub and
+            then register a passkey.
+          </p>
+        </div>
       </div>
     </div>
   );

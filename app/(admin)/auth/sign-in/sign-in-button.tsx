@@ -9,7 +9,7 @@ export default function SignInButton() {
   return (
     <button
       className={
-        "p-2 px-6 rounded-xl flex gap-2 bg-neutral-900 text-white text-lg hover:bg-neutral-800 transition-all shadow-4xl items-center"
+        "p-2 px-6 rounded-xl w-full flex gap-2 bg-neutral-900 text-white text-lg hover:bg-neutral-800 transition-all shadow-4xl items-center justify-center"
       }
       onClick={() => {
         setLoading(true);
