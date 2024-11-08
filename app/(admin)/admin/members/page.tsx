@@ -7,6 +7,7 @@ import useMembers from "@/lib/hooks/useMembers";
 import { useState } from "react";
 import ConfigButton from "@/app/components/config-button";
 import { useLoading } from "@/lib/stores/loading";
+import AdminPageTitle from "@/app/components/admin-page-title";
 
 export default function MembersPage() {
   const { membersData, mutateMembers } = useMembers();
@@ -62,7 +63,7 @@ export default function MembersPage() {
   return (
     <AdminPageLayout>
       <div className={"flex gap-2 items-center pb-2"}>
-        <div className={"text-2xl font-bold"}>Members</div>
+        <AdminPageTitle>Members</AdminPageTitle>
         <Link
           href={"/admin/members/accept"}
           className={

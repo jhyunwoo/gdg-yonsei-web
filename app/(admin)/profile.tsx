@@ -22,7 +22,7 @@ export default async function Profile() {
   return (
     <div
       className={
-        "bg-white border-2 rounded-xl break-normal p-3 flex flex-col border-neutral-800/80 w-full hover:bg-neutral-100 transition-colors"
+        "bg-white border-2 rounded-xl break-normal p-3 flex flex-col border-neutral-800/80 w-full"
       }
     >
       <div className={"text-lg font-semibold"}>
