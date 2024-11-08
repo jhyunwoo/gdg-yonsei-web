@@ -2,6 +2,8 @@ import SignInButton from "@/app/(admin)/auth/sign-in/sign-in-button";
 import Image from "next/image";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import PasskeyButton from "@/app/(admin)/auth/sign-in/passkey-button";
+import AuthProvider from "@/app/(admin)/auth/sign-in/auth-provider";
 
 export default async function SignInPage() {
   const session = await auth();
@@ -29,6 +31,9 @@ export default async function SignInPage() {
           </div>
         </div>
         <SignInButton />
+        <AuthProvider>
+          <PasskeyButton />
+        </AuthProvider>
       </div>
     </div>
   );
