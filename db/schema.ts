@@ -112,10 +112,21 @@ export const projects = pgTable("projects", {
   defaultImage: text("defaultImage").notNull(),
   images: jsonb("images").$type<string[]>().default([]),
   github: text("github"),
-  participants: jsonb().$type<string[]>().default([]),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   editedAt: timestamp("editedAt").notNull().defaultNow(),
   authorId: text("authorId")
     .notNull()
     .references(() => users.id),
+});
+
+export const projectsMembers = pgTable("projectsMembers", {
+  projectId: uuid()
+    .notNull()
+    .references(() => projects.id, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    }),
+  userId: text()
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade", onUpdate: "cascade" }),
 });

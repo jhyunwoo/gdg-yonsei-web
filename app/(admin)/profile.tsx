@@ -3,7 +3,7 @@ import db from "@/db";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import SignOutButton from "@/app/components/sign-out-button";
-import Link from "next/link";
+import ProfileNavButton from "@/app/(admin)/profile-nav-button";
 
 export default async function Profile() {
   const session = await auth();
@@ -32,14 +32,7 @@ export default async function Profile() {
       </div>
       <div>{userInfo.role?.toUpperCase()}</div>
       <div className={"flex flex-col gap-1"}>
-        <Link
-          href={"/admin/profile"}
-          className={
-            "w-full p-1 bg-neutral-950 text-white text-center rounded-lg"
-          }
-        >
-          Profile
-        </Link>
+        <ProfileNavButton />
         <SignOutButton />
       </div>
     </div>

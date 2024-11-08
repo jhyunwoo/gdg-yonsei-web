@@ -2,6 +2,7 @@
 
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
+import useProjectMembers from "@/lib/hooks/useProjectMembers";
 
 interface InsertProjectType {
   title: string;
@@ -11,14 +12,29 @@ interface InsertProjectType {
 
 export default function ProjectForm() {
   const { register, handleSubmit } = useForm<InsertProjectType>();
-  const [defaultImage, setDefaultImage] = useState<File>();
+  const { projectMembersData } = useProjectMembers();
 
+  const [defaultImage, setDefaultImage] = useState<File>();
   const [images, setImages] = useState<FileList | null>(null);
+  const [participants, setParticipants] = useState<string[]>([]);
+
+  function handleParticipant(id: string) {
+    if (participants.includes(id)) {
+      setParticipants(participants.filter((participant) => participant !== id));
+    } else {
+      setParticipants([...participants, id]);
+    }
+  }
 
   const onSubmit: SubmitHandler<InsertProjectType> = async (data) => {
     const createProject = await fetch("/api/projects", {
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        title: data.title,
+        description: data.description,
+        github: data.github,
+        participants: participants,
+      }),
     });
     const createResult = (await createProject.json()) as { id: string };
     console.log(createResult);
@@ -97,7 +113,27 @@ export default function ProjectForm() {
         multiple={true}
         onChange={(event) => setImages(event.target.files)}
       />
-      <button type={"submit"}>Submit</button>
+      <div>Participants</div>
+      <div className={"grid grid-cols-2 gap-2"}>
+        {projectMembersData?.map((member) => (
+          <button
+            type={"button"}
+            key={member.id}
+            onClick={() => handleParticipant(member.id)}
+            className={`${participants.includes(member.id) ? "bg-neutral-950 text-white" : ""} p-1 px-3 rounded-lg ring-2 ring-neutral-600`}
+          >
+            <div>{member.name}</div>
+          </button>
+        ))}
+      </div>
+      <button
+        type={"submit"}
+        className={
+          "p-2 rounded-lg bg-neutral-800 text-white text-lg font-semibold hover:bg-neutral-950 transition-colors"
+        }
+      >
+        Submit
+      </button>
     </form>
   );
 }
