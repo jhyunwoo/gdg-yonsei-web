@@ -3,6 +3,9 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
 import useProjectMembers from "@/lib/hooks/useProjectMembers";
+import { useLoading } from "@/lib/stores/loading";
+import { useRouter } from "next/navigation";
+import getMemberName from "@/lib/get-member-name";
 
 interface InsertProjectType {
   title: string;
@@ -13,10 +16,13 @@ interface InsertProjectType {
 export default function ProjectForm() {
   const { register, handleSubmit } = useForm<InsertProjectType>();
   const { projectMembersData } = useProjectMembers();
+  const router = useRouter();
 
   const [defaultImage, setDefaultImage] = useState<File>();
   const [images, setImages] = useState<FileList | null>(null);
   const [participants, setParticipants] = useState<string[]>([]);
+
+  const { setLoading, clearLoading, loading } = useLoading((state) => state);
 
   function handleParticipant(id: string) {
     if (participants.includes(id)) {
@@ -27,6 +33,7 @@ export default function ProjectForm() {
   }
 
   const onSubmit: SubmitHandler<InsertProjectType> = async (data) => {
+    setLoading("Creating project...", "message");
     const createProject = await fetch("/api/projects", {
       method: "POST",
       body: JSON.stringify({
@@ -37,7 +44,6 @@ export default function ProjectForm() {
       }),
     });
     const createResult = (await createProject.json()) as { id: string };
-    console.log(createResult);
 
     const requestDefaultImageUploadUrl = await fetch("/api/images", {
       method: "POST",
@@ -78,6 +84,9 @@ export default function ProjectForm() {
         body: imagesArray.shift(),
       });
     }
+    setLoading("Project Created", "complete");
+    setTimeout(() => clearLoading(), 1000);
+    router.push(`/admin/projects`);
   };
 
   return (
@@ -122,12 +131,13 @@ export default function ProjectForm() {
             onClick={() => handleParticipant(member.id)}
             className={`${participants.includes(member.id) ? "bg-neutral-950 text-white" : ""} p-1 px-3 rounded-lg ring-2 ring-neutral-600`}
           >
-            <div>{member.name}</div>
+            <div>{getMemberName(member)}</div>
           </button>
         ))}
       </div>
       <button
         type={"submit"}
+        disabled={!!loading}
         className={
           "p-2 rounded-lg bg-neutral-800 text-white text-lg font-semibold hover:bg-neutral-950 transition-colors"
         }

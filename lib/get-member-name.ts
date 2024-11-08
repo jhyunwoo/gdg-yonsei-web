@@ -1,13 +1,17 @@
-import { users } from "@/db/schema";
-
-export default function getMemberName(
-  memberData: typeof users.$inferSelect | undefined,
-) {
-  if (memberData) {
-    if (memberData.firstName && memberData.lastName) {
-      return `${memberData.firstName} ${memberData.lastName}`;
+export default function getMemberName({
+  name,
+  firstName,
+  lastName,
+}: {
+  name: string | undefined | null;
+  firstName: string | undefined | null;
+  lastName: string | undefined | null;
+}) {
+  if (name || firstName || lastName) {
+    if (firstName && lastName) {
+      return `${firstName} ${lastName}`;
     } else {
-      return memberData.name;
+      return name;
     }
   } else {
     return "Loading...";

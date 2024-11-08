@@ -26,7 +26,11 @@ export default function MemberPage({
       </Link>
       <div className={"flex gap-2 items-center"}>
         <div className={"text-2xl font-bold py-2"}>
-          {getMemberName(memberData)}
+          {getMemberName({
+            firstName: memberData?.firstName,
+            lastName: memberData?.lastName,
+            name: memberData?.name,
+          })}
         </div>
         <Link
           href={`/admin/members/${React.use(params).userId}/edit`}

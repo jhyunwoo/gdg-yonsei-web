@@ -1,6 +1,7 @@
 import AdminPageLayout from "@/app/components/admin-page-layout";
 import AdminPageTitle from "@/app/components/admin-page-title";
 import Link from "next/link";
+import ProjectList from "@/app/(admin)/admin/projects/project-list";
 
 export default function ProjectsPage() {
   return (
@@ -16,7 +17,7 @@ export default function ProjectsPage() {
           Create Project
         </Link>
       </div>
-      <div></div>
+      <ProjectList />
     </AdminPageLayout>
   );
 }
