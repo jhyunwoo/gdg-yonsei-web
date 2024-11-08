@@ -37,7 +37,7 @@ export default async function SignInPage() {
           <SignInButton />
           <PasskeyButton />
           <p className={"text-sm text-center text-neutral-900"}>
-            To Sign in with a passkey, you must first log in with GitHub and
+            To Sign in with a passkey, you must first sign in with GitHub and
             then register a passkey.
           </p>
         </div>
