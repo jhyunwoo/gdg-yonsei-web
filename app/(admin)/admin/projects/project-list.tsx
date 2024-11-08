@@ -26,7 +26,7 @@ export default function ProjectList() {
 
           <div className={"flex flex-col items-start justify-center"}>
             <div className={"text-sm"}>
-              작성자:{" "}
+              Author:{" "}
               {getMemberName({
                 firstName: project.authorFirstName,
                 lastName: project.authorLastName,
@@ -34,10 +34,10 @@ export default function ProjectList() {
               })}
             </div>
             <div className={"text-sm text-neutral-700"}>
-              편집: {getKoDate(project.editedAt)}
+              Edited At: {getKoDate(project.editedAt)}
             </div>
             <div className={"text-sm text-neutral-700"}>
-              생성: {getKoDate(project.createdAt)}
+              Created At: {getKoDate(project.createdAt)}
             </div>
           </div>
         </Link>

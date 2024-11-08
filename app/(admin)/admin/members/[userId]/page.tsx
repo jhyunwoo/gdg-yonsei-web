@@ -6,7 +6,7 @@ import React from "react";
 import Link from "next/link";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import getMemberName from "@/lib/get-member-name";
-import UserData from "@/app/components/user-data";
+import DataWithTitle from "@/app/components/data-with-title";
 
 export default function MemberPage({
   params,
@@ -46,13 +46,13 @@ export default function MemberPage({
           "p-2 rounded-xl bg-white grid grid-cols-2 lg:grid-cols-4 gap-2"
         }
       >
-        <UserData title={"First Name"} data={memberData?.firstName} />
-        <UserData title={"Last Name"} data={memberData?.lastName} />
-        <UserData title={"Github Name"} data={memberData?.name} />
-        <UserData title={"Part"} data={memberData?.part} />
-        <UserData title={"Generation"} data={memberData?.generation} />
-        <UserData title={"Role"} data={memberData?.role} />
-        <UserData
+        <DataWithTitle title={"First Name"} data={memberData?.firstName} />
+        <DataWithTitle title={"Last Name"} data={memberData?.lastName} />
+        <DataWithTitle title={"Github Name"} data={memberData?.name} />
+        <DataWithTitle title={"Part"} data={memberData?.part} />
+        <DataWithTitle title={"Generation"} data={memberData?.generation} />
+        <DataWithTitle title={"Role"} data={memberData?.role} />
+        <DataWithTitle
           title={"State"}
           data={memberData?.active ? "Active" : "Alumni"}
         />

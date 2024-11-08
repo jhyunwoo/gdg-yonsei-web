@@ -1,4 +1,4 @@
-export default function UserData({
+export default function DataWithTitle({
   title,
   data,
 }: {

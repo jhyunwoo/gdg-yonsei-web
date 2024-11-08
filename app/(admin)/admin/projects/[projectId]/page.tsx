@@ -1,5 +1,6 @@
 import React from "react";
 import AdminPageLayout from "@/app/components/admin-page-layout";
+import ProjectData from "@/app/(admin)/admin/projects/[projectId]/project-data";
 
 export default function ProjectPage({
   params,
@@ -8,8 +9,7 @@ export default function ProjectPage({
 }) {
   return (
     <AdminPageLayout>
-      <div>Project Page</div>
-      <div>{React.use(params).projectId}</div>
+      <ProjectData projectId={React.use(params).projectId} />
     </AdminPageLayout>
   );
 }
