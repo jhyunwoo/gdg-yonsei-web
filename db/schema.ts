@@ -106,7 +106,7 @@ export const authenticators = pgTable(
 );
 
 export const projects = pgTable("projects", {
-  id: uuid("id").defaultRandom(),
+  id: uuid("id").defaultRandom().primaryKey(),
   title: text("title").notNull(),
   description: text("description"),
   defaultImage: text("defaultImage").notNull(),
