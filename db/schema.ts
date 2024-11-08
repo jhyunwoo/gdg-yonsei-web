@@ -113,7 +113,7 @@ export const projects = pgTable("projects", {
   images: jsonb("images").$type<string[]>().default([]),
   github: text("github"),
   participants: jsonb().$type<string[]>().default([]),
-  createdAt: timestamp("createdAt").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
   editedAt: timestamp("editedAt").notNull().defaultNow(),
   authorId: text("authorId")
     .notNull()

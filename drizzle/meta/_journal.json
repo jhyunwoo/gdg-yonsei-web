@@ -57,6 +57,13 @@
       "when": 1731049133963,
       "tag": "0007_military_black_knight",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1731061762424,
+      "tag": "0008_dashing_expediter",
+      "breakpoints": true
     }
   ]
 }

@@ -19,7 +19,7 @@ export async function POST(request: Request) {
   const signedUrls = [];
 
   for (let i = 0; i < body.files.length; i += 1) {
-    const fileKey = body.folderId + "/" + body.files[i].name;
+    const fileKey = "projects/" + body.folderId + "/" + body.files[i].name;
 
     const command = new PutObjectCommand({
       Bucket: "gdgoc-yonsei",
