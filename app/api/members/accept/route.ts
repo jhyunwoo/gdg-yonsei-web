@@ -12,7 +12,7 @@ export async function PUT(request: Request) {
   const res = await request.json();
   await db
     .update(users)
-    .set({ verified: true })
+    .set({ verified: true, role: "member" })
     .where(inArray(users.id, res.members));
   return NextResponse.json({ result: "Accept Members" });
 }

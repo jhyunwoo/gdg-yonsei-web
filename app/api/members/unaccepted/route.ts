@@ -27,7 +27,7 @@ export async function PUT(request: Request) {
   const res = await request.json();
   await db
     .update(users)
-    .set({ verified: false })
+    .set({ verified: false, role: "unverified" })
     .where(inArray(users.id, res.members));
   return NextResponse.json({ result: "Delete Members" });
 }

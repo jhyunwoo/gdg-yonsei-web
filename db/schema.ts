@@ -6,10 +6,17 @@ import {
   primaryKey,
   integer,
   pgEnum,
+  uuid,
+  jsonb,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccountType } from "next-auth/adapters";
 
-export const roleEnum = pgEnum("role", ["member", "core", "lead"]);
+export const roleEnum = pgEnum("role", [
+  "member",
+  "core",
+  "lead",
+  "unverified",
+]);
 
 export const users = pgTable("user", {
   id: text("id")
@@ -23,7 +30,7 @@ export const users = pgTable("user", {
   image: text("image"),
   generation: integer(),
   part: text(),
-  role: roleEnum().default("member"),
+  role: roleEnum().default("unverified").notNull(),
   githubId: text("githubId"),
   linkedInId: text("linkedinId"),
   instagramId: text("instagramId"),
@@ -97,3 +104,18 @@ export const authenticators = pgTable(
     }),
   }),
 );
+
+export const projects = pgTable("projects", {
+  id: uuid("id").defaultRandom(),
+  title: text("title").notNull(),
+  description: text("description"),
+  defaultImage: text("defaultImage").notNull(),
+  images: jsonb("images").$type<string[]>().default([]),
+  github: text("github"),
+  participants: jsonb().$type<string[]>().default([]),
+  createdAt: timestamp("createdAt").notNull(),
+  editedAt: timestamp("editedAt").notNull().defaultNow(),
+  authorId: text("authorId")
+    .notNull()
+    .references(() => users.id),
+});

@@ -1,7 +1,7 @@
 import getUserRole from "@/lib/get-user-role";
 import { auth } from "@/auth";
 
-type UserRoleType = "member" | "core" | "lead" | null;
+type UserRoleType = "member" | "core" | "lead" | "unverified" | null;
 
 /**
  * 사용자 접근 권한을 확인하는 함수
