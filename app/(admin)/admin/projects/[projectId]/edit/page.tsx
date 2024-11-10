@@ -18,9 +18,9 @@ export default async function EditProject({
           className={"flex gap-2 items-center"}
         >
           <ChevronLeftIcon className={"size-6"} />
-          <p>Member Info</p>
+          <p>Project Info</p>
         </Link>
-        <div className={"text-xl font-bold p-2"}>Edit Member</div>
+        <div className={"text-xl font-bold p-2"}>Edit Project</div>
       </div>
       <EditProjectForm projectId={projectId} />
     </AdminPageLayout>

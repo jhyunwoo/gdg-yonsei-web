@@ -1,11 +1,12 @@
 "use client";
 
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useProjectMembers from "@/lib/hooks/useProjectMembers";
 import { useLoading } from "@/lib/stores/loading";
 import { useRouter } from "next/navigation";
 import getMemberName from "@/lib/get-member-name";
+import { ParticipantsType, ProjectType } from "@/lib/hooks/useProject";
 
 interface InsertProjectType {
   title: string;
@@ -13,8 +14,14 @@ interface InsertProjectType {
   github: string;
 }
 
-export default function ProjectForm() {
-  const { register, handleSubmit } = useForm<InsertProjectType>();
+export default function ProjectForm({
+  projectData,
+  participantsData,
+}: {
+  projectData?: ProjectType;
+  participantsData?: ParticipantsType[];
+}) {
+  const { register, handleSubmit, setValue } = useForm<InsertProjectType>();
   const { projectMembersData } = useProjectMembers();
   const router = useRouter();
 
@@ -88,6 +95,27 @@ export default function ProjectForm() {
     setTimeout(() => clearLoading(), 1000);
     router.push(`/admin/projects`);
   };
+
+  useEffect(() => {
+    if (projectData?.title) {
+      setValue("title", projectData.title);
+    }
+    if (projectData?.description) {
+      setValue("description", projectData.description);
+    }
+    if (projectData?.github) {
+      setValue("github", projectData.github);
+    }
+    if (participantsData) {
+      setParticipants(participantsData.map((participant) => participant.id!));
+    }
+  }, [
+    participantsData,
+    projectData?.description,
+    projectData?.github,
+    projectData?.title,
+    setValue,
+  ]);
 
   return (
     <form

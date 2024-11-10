@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import fetcher from "@/lib/swr/fetcher";
 
-interface ParticipantsType {
+export interface ParticipantsType {
   id: string | null;
   name: string | null;
   firstName: string | null;
@@ -9,7 +9,7 @@ interface ParticipantsType {
   image: string | null;
 }
 
-interface ProjectType {
+export interface ProjectType {
   id: string;
   title: string;
   description: string | null;

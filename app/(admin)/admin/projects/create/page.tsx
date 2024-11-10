@@ -2,7 +2,7 @@ import AdminPageLayout from "@/app/components/admin-page-layout";
 import AdminPageTitle from "@/app/components/admin-page-title";
 import Link from "next/link";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
-import ProjectForm from "@/app/(admin)/admin/projects/create/project-form";
+import ProjectForm from "@/app/components/project-form";
 
 export default function CreateProjectPage() {
   return (
