@@ -119,6 +119,23 @@ export const projects = pgTable("projects", {
     .references(() => users.id),
 });
 
+export const tags = pgTable("tags", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  name: text("name").notNull(),
+});
+
+export const projectsTags = pgTable("projectsTags", {
+  projectId: uuid()
+    .notNull()
+    .references(() => projects.id, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    }),
+  tagId: uuid()
+    .notNull()
+    .references(() => tags.id, { onDelete: "cascade", onUpdate: "cascade" }),
+});
+
 export const projectsMembers = pgTable("projectsMembers", {
   projectId: uuid()
     .notNull()
