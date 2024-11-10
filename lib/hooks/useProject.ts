@@ -12,7 +12,7 @@ export interface ParticipantsType {
 export interface ProjectType {
   id: string;
   title: string;
-  description: string | null;
+  description: string[] | null;
   defaultImage: string;
   images: string[] | null;
   github: string | null;

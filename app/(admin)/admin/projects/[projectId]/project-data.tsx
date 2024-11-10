@@ -10,7 +10,7 @@ import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 
 export default function ProjectData({ projectId }: { projectId: string }) {
   const { projectData, participants } = useProject(projectId);
-
+  console.log(projectData);
   return (
     <div className={"bg-white p-2 rounded-xl gap-4 flex flex-col"}>
       <Link
@@ -93,7 +93,11 @@ export default function ProjectData({ projectId }: { projectId: string }) {
       </div>
       <div>
         <div className={"text-sm text-neutral-700"}>Description</div>
-        <div>{projectData?.description}</div>
+        <div>
+          {projectData?.description?.map((data, index) => (
+            <div key={index}>{data}</div>
+          ))}
+        </div>
       </div>
     </div>
   );

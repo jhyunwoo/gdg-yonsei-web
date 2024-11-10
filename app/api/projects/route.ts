@@ -35,7 +35,7 @@ export async function POST(request: Request) {
 
   const body = (await request.json()) as {
     title: string;
-    description: string;
+    description: string[];
     github: string;
     participants: string[];
   };
@@ -74,35 +74,28 @@ export async function PUT(request: Request) {
   const body = (await request.json()) as {
     id: string;
     title: string | null | undefined;
-    description: string | null | undefined;
+    description: string[] | null | undefined;
     github: string | null | undefined;
     participants: string[] | null | undefined;
     defaultImage: string | null | undefined;
     images: string[] | null | undefined;
   };
 
-  console.log(body);
-
-  console.log({
-    ...(body.title ? { title: body.title } : {}),
-    ...(body.description ? { description: body.description } : {}),
-    ...(body.github ? { github: body.github } : {}),
-    ...(body.participants ? { participants: body.participants } : {}),
-    ...(body.defaultImage ? { defaultImage: body.defaultImage } : {}),
-    ...(body.images ? { images: body.images } : {}),
-  });
-
-  await db
-    .update(projects)
-    .set({
-      ...(body.title ? { title: body.title } : {}),
-      ...(body.description ? { description: body.description } : {}),
-      ...(body.github ? { github: body.github } : {}),
-      ...(body.participants ? { participants: body.participants } : {}),
-      ...(body.defaultImage ? { defaultImage: body.defaultImage } : {}),
-      ...(body.images ? { images: body.images } : {}),
-    })
-    .where(eq(projects.id, body.id));
-
-  return NextResponse.json({ id: body.id });
+  try {
+    await db
+      .update(projects)
+      .set({
+        ...(body.title ? { title: body.title } : {}),
+        ...(body.description ? { description: body.description } : {}),
+        ...(body.github ? { github: body.github } : {}),
+        ...(body.participants ? { participants: body.participants } : {}),
+        ...(body.defaultImage ? { defaultImage: body.defaultImage } : {}),
+        ...(body.images ? { images: body.images } : {}),
+        editedAt: new Date(),
+      })
+      .where(eq(projects.id, body.id));
+    return NextResponse.json({ id: body.id });
+  } catch {
+    return NextResponse.json({ message: "Updated Cancelled" });
+  }
 }

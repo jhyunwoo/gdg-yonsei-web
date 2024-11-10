@@ -9,6 +9,7 @@ import getMemberName from "@/lib/get-member-name";
 import { ParticipantsType, ProjectType } from "@/lib/hooks/useProject";
 import uploadImages from "@/lib/upload-images";
 import Image from "next/image";
+import { useProjectLoading } from "@/lib/stores/project-loading";
 
 export interface InsertProjectType {
   title: string;
@@ -28,13 +29,15 @@ export default function ProjectForm({
   const { register, handleSubmit, setValue } = useForm<InsertProjectType>();
   const { projectMembersData } = useProjectMembers();
   const router = useRouter();
+  const { setProjectLoading, clearLoading } = useProjectLoading(
+    (state) => state,
+  );
 
   const [defaultImage, setDefaultImage] = useState<File>();
   const [images, setImages] = useState<File[]>([]);
   const [participants, setParticipants] = useState<string[]>([]);
 
-  console.log(images);
-  const { setLoading, clearLoading, loading } = useLoading((state) => state);
+  const { loading } = useLoading((state) => state);
 
   function handleParticipant(id: string) {
     if (participants.includes(id)) {
@@ -49,13 +52,16 @@ export default function ProjectForm({
       return alert("Please select at least one participant.");
     }
 
-    setLoading("Creating project...", "message");
+    setProjectLoading(
+      type === "POST" ? "Creating Project..." : "Updating Project...",
+      0,
+    );
     const createProject = await fetch("/api/projects", {
       method: type,
       body: JSON.stringify({
         ...(type === "PUT" && { id: projectData?.id }),
         title: data.title,
-        description: data.description,
+        description: data.description.split("\n"),
         github: data.github,
         participants: participants,
       }),
@@ -63,11 +69,11 @@ export default function ProjectForm({
     const createResult = (await createProject.json()) as { id: string };
 
     if (defaultImage) {
-      console.log("uploading default image");
+      setProjectLoading("Upload Default Image...", 30);
       await uploadImages(createResult.id, [defaultImage]);
     }
     if (images.length > 0) {
-      console.log("uploading images");
+      setProjectLoading("Upload Images...", 50);
       await uploadImages(createResult.id, images);
     }
 
@@ -85,9 +91,14 @@ export default function ProjectForm({
     const updateResult = await updateImages.json();
     console.log(updateResult);
 
-    setLoading("Project Created", "complete");
-    setTimeout(() => clearLoading(), 1000);
+    setProjectLoading(
+      type === "POST"
+        ? "Complete Creating Project"
+        : "Complete Updating Project",
+      100,
+    );
     router.push(`/admin/projects`);
+    clearLoading();
   };
 
   useEffect(() => {
@@ -95,7 +106,11 @@ export default function ProjectForm({
       setValue("title", projectData.title);
     }
     if (projectData?.description) {
-      setValue("description", projectData.description);
+      let descriptionData = "";
+      for (const text of projectData.description) {
+        descriptionData += text + "\n";
+      }
+      setValue("description", descriptionData);
     }
     if (projectData?.github) {
       setValue("github", projectData.github);
