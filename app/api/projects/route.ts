@@ -1,4 +1,4 @@
-import validateUserAccess from "@/lib/validate-user-access";
+import validateUserAccess from "@/lib/server/validate-user-access";
 import { NextResponse } from "next/server";
 import db from "@/db";
 import { projects, projectsMembers, users } from "@/db/schema";
@@ -65,4 +65,35 @@ export async function POST(request: Request) {
   await db.insert(projectsMembers).values(linkProjectToUserData);
 
   return NextResponse.json(createProject[0]);
+}
+
+export async function PUT(request: Request) {
+  const checkPermission = await validateUserAccess(["core", "lead", "member"]);
+  if (!checkPermission)
+    return NextResponse.json({ error: "Permission Denied" }, { status: 403 });
+  const body = (await request.json()) as {
+    id: string;
+    title: string | null | undefined;
+    description: string | null | undefined;
+    github: string | null | undefined;
+    participants: string[] | null | undefined;
+    defaultImage: string | null | undefined;
+    images: string[] | null | undefined;
+  };
+
+  console.log(body);
+
+  await db
+    .update(projects)
+    .set({
+      ...(body.title ? { title: body.title } : {}),
+      ...(body.description ? { description: body.description } : {}),
+      ...(body.github ? { github: body.github } : {}),
+      ...(body.participants ? { participants: body.participants } : {}),
+      ...(body.defaultImage ? { defaultImage: body.defaultImage } : {}),
+      ...(body.images ? { images: body.images } : {}),
+    })
+    .where(eq(projects.id, body.id));
+
+  return NextResponse.json({ id: body.id });
 }

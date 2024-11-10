@@ -12,6 +12,14 @@ const nextConfig: NextConfig = {
 
     return config;
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "image.gdgyonsei.moveto.kr",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

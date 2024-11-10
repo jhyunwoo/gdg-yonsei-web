@@ -2,7 +2,7 @@ import db from "@/db";
 import { users } from "@/db/schema";
 import { inArray } from "drizzle-orm";
 import { NextResponse } from "next/server";
-import validateUserAccess from "@/lib/validate-user-access";
+import validateUserAccess from "@/lib/server/validate-user-access";
 
 export async function PUT(request: Request) {
   const checkPermission = await validateUserAccess(["core", "lead"]);

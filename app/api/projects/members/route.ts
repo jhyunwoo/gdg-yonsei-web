@@ -1,4 +1,4 @@
-import validateUserAccess from "@/lib/validate-user-access";
+import validateUserAccess from "@/lib/server/validate-user-access";
 import { NextResponse } from "next/server";
 import db from "@/db";
 import { users } from "@/db/schema";

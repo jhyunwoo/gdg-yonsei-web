@@ -2,7 +2,7 @@ import db from "@/db";
 import { users } from "@/db/schema";
 import { NextResponse } from "next/server";
 import { desc, eq } from "drizzle-orm";
-import validateUserAccess from "@/lib/validate-user-access";
+import validateUserAccess from "@/lib/server/validate-user-access";
 
 export async function GET() {
   // lead 와 core 만 members 데이터 조회 허용

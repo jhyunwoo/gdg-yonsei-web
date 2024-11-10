@@ -18,7 +18,7 @@ export default function CreateProjectPage() {
         <AdminPageTitle>Create Project</AdminPageTitle>
       </div>
       <div>
-        <ProjectForm />
+        <ProjectForm type={"POST"} />
       </div>
     </AdminPageLayout>
   );

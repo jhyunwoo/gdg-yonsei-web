@@ -7,8 +7,10 @@ import { useLoading } from "@/lib/stores/loading";
 import { useRouter } from "next/navigation";
 import getMemberName from "@/lib/get-member-name";
 import { ParticipantsType, ProjectType } from "@/lib/hooks/useProject";
+import uploadImages from "@/lib/upload-images";
+import Image from "next/image";
 
-interface InsertProjectType {
+export interface InsertProjectType {
   title: string;
   description: string;
   github: string;
@@ -17,18 +19,21 @@ interface InsertProjectType {
 export default function ProjectForm({
   projectData,
   participantsData,
+  type,
 }: {
   projectData?: ProjectType;
   participantsData?: ParticipantsType[];
+  type: "POST" | "PUT";
 }) {
   const { register, handleSubmit, setValue } = useForm<InsertProjectType>();
   const { projectMembersData } = useProjectMembers();
   const router = useRouter();
 
   const [defaultImage, setDefaultImage] = useState<File>();
-  const [images, setImages] = useState<FileList | null>(null);
+  const [images, setImages] = useState<File[]>([]);
   const [participants, setParticipants] = useState<string[]>([]);
 
+  console.log(images);
   const { setLoading, clearLoading, loading } = useLoading((state) => state);
 
   function handleParticipant(id: string) {
@@ -40,10 +45,14 @@ export default function ProjectForm({
   }
 
   const onSubmit: SubmitHandler<InsertProjectType> = async (data) => {
+    if (participants.length === 0) {
+      return alert("Please select at least one participant.");
+    }
     setLoading("Creating project...", "message");
     const createProject = await fetch("/api/projects", {
-      method: "POST",
+      method: type,
       body: JSON.stringify({
+        ...(type === "PUT" && { id: projectData?.id }),
         title: data.title,
         description: data.description,
         github: data.github,
@@ -52,45 +61,28 @@ export default function ProjectForm({
     });
     const createResult = (await createProject.json()) as { id: string };
 
-    const requestDefaultImageUploadUrl = await fetch("/api/images", {
-      method: "POST",
-      body: JSON.stringify({
-        folderId: createResult.id,
-        files: [{ name: defaultImage?.name, type: defaultImage?.type }],
-      }),
-    });
-    const defaultImageUploadUrl =
-      (await requestDefaultImageUploadUrl.json()) as string[];
-    await fetch(defaultImageUploadUrl[0], {
+    if (defaultImage) {
+      await uploadImages(createResult.id, [defaultImage]);
+    }
+    if (images.length > 0) {
+      await uploadImages(createResult.id, images);
+    }
+    const updateImages = await fetch("/api/projects", {
       method: "PUT",
-      body: defaultImage,
-    });
-
-    const imagesArray = Array.from(images!);
-
-    const imagesData = [];
-
-    for (let i = 0; i < imagesArray.length; i += 1) {
-      imagesData.push({
-        name: imagesArray[i].name,
-        type: imagesArray[i].type,
-      });
-    }
-
-    const requestImagesUploadUrl = await fetch("/api/images", {
-      method: "POST",
       body: JSON.stringify({
-        folderId: createResult.id,
-        files: imagesData,
+        id: createResult.id,
+        ...(defaultImage && { defaultImage: defaultImage.name }),
+        ...(images.length > 0
+          ? {
+              images: images.map((image) => image.name),
+            }
+          : {}),
       }),
     });
-    const imagesUploadUrl = (await requestImagesUploadUrl.json()) as string[];
-    for (const url of imagesUploadUrl) {
-      await fetch(url, {
-        method: "PUT",
-        body: imagesArray.shift(),
-      });
-    }
+
+    const updateResult = await updateImages.json();
+    console.log(updateResult);
+
     setLoading("Project Created", "complete");
     setTimeout(() => clearLoading(), 1000);
     router.push(`/admin/projects`);
@@ -131,24 +123,8 @@ export default function ProjectForm({
       />
       <input
         className={"edit-form"}
-        placeholder={"Description"}
-        {...register("description")}
-      />
-      <input
-        className={"edit-form"}
         placeholder={"Github URL"}
         {...register("github")}
-      />
-      <input
-        type={"file"}
-        accept={"image/*"}
-        onChange={(event) => setDefaultImage(event.target.files?.[0])}
-      />
-      <input
-        type={"file"}
-        accept={"image/*"}
-        multiple={true}
-        onChange={(event) => setImages(event.target.files)}
       />
       <div>Participants</div>
       <div className={"grid grid-cols-2 gap-2"}>
@@ -162,6 +138,93 @@ export default function ProjectForm({
             <div>{getMemberName(member)}</div>
           </button>
         ))}
+      </div>
+      <div className={"w-full grid grid-cols-1 lg:grid-cols-2 gap-2"}>
+        <div className={"flex flex-col gap-2"}>
+          <div>Default Image</div>
+          <label
+            className="p-2 px-4 rounded-full bg-neutral-950 text-white text-center hover:bg-neutral-800 transition-colors cursor-pointer"
+            htmlFor="defaultImageInput"
+          >
+            Select Default Image
+          </label>
+          <input
+            className={"hidden"}
+            id="defaultImageInput"
+            type={"file"}
+            accept={"image/*"}
+            onChange={(event) => {
+              setDefaultImage(event.target.files?.[0]);
+              event.currentTarget.value = "";
+            }}
+          />
+          {defaultImage ? (
+            <Image
+              src={URL.createObjectURL(defaultImage)}
+              alt={"Default Image"}
+              width={300}
+              height={300}
+              className={"w-full"}
+            />
+          ) : (
+            <Image
+              src={`https://image.gdgyonsei.moveto.kr/projects/${projectData?.id}/${projectData?.defaultImage}`}
+              alt={"Default Image"}
+              width={300}
+              height={300}
+              className={"w-full"}
+            />
+          )}
+        </div>
+
+        <div className={"flex flex-col gap-2"}>
+          <div>Images</div>
+          <label
+            className="p-2 px-4 rounded-full bg-neutral-950 text-white text-center hover:bg-neutral-800 transition-colors cursor-pointer"
+            htmlFor="imagesInput"
+          >
+            Select Images
+          </label>
+          <input
+            className={"hidden"}
+            id="imagesInput"
+            type={"file"}
+            multiple={true}
+            accept={"image/*"}
+            onChange={(event) => setImages(Array.from(event.target.files!))}
+          />
+          {images.length > 0
+            ? images?.map((image) => (
+                <Image
+                  key={image.name}
+                  src={URL.createObjectURL(image)}
+                  alt={"Image"}
+                  width={300}
+                  height={300}
+                  className={"w-full"}
+                />
+              ))
+            : projectData?.images?.map((image) => (
+                <Image
+                  key={image}
+                  src={`https://image.gdgyonsei.moveto.kr/projects/${projectData?.id}/${image}`}
+                  alt={"Image"}
+                  width={300}
+                  height={300}
+                  className={"w-full"}
+                />
+              ))}
+        </div>
+      </div>
+      <div className={"w-full flex flex-col"}>
+        <div>Description</div>
+        <textarea
+          className={
+            "p-2 bg-neutral-100 rounded-lg px-4 font-semibold text-lg w-full;"
+          }
+          placeholder={"Description"}
+          {...register("description")}
+        />
       </div>
       <button
         type={"submit"}

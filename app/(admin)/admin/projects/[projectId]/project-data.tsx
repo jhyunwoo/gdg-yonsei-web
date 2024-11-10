@@ -5,11 +5,11 @@ import AdminPageTitle from "@/app/components/admin-page-title";
 import getKoDate from "@/lib/get-ko-date";
 import DataWithTitle from "@/app/components/data-with-title";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function ProjectData({ projectId }: { projectId: string }) {
   const { projectData, participants } = useProject(projectId);
 
-  console.log(projectData);
   return (
     <div className={"bg-white p-2 rounded-xl gap-4 flex flex-col"}>
       <div className={"flex gap-2 items-center"}>
@@ -53,6 +53,29 @@ export default function ProjectData({ projectId }: { projectId: string }) {
             >
               {participant.name}
             </div>
+          ))}
+        </div>
+      </div>
+      <div>
+        <div className={"text-sm text-neutral-700"}>Default Image</div>
+        <Image
+          src={`https://image.gdgyonsei.moveto.kr/projects/${projectId}/${projectData?.defaultImage}`}
+          alt={"Default Image"}
+          width={300}
+          height={300}
+        />
+      </div>
+      <div>
+        <div className={"text-sm text-neutral-700"}>Images</div>
+        <div>
+          {projectData?.images?.map((url) => (
+            <Image
+              key={url}
+              src={`https://image.gdgyonsei.moveto.kr/projects/${projectId}/${url}`}
+              alt={"Default Image"}
+              width={300}
+              height={300}
+            />
           ))}
         </div>
       </div>

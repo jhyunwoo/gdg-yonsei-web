@@ -1,6 +1,6 @@
-import validateUserAccess from "@/lib/validate-user-access";
+import validateUserAccess from "@/lib/server/validate-user-access";
 import { NextResponse } from "next/server";
-import createR2Client from "@/lib/create-r2-client";
+import createR2Client from "@/lib/server/create-r2-client";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
