@@ -1,12 +1,18 @@
 import ProjectCard from "@/app/components/project-page/card";
 import Chip from "@/app/components/project-page/chip";
+import db from "@/db";
+import { projects } from "@/db/schema";
+import getProjects from "@/lib/server/get-projects";
 
-const project1 = [
-  "Project Name",
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fringilla nulla sit amet feugiat elementum. Donec facilisis pretium vulputate. Vestibulum quis elit ex. Quisque molestie dui nec faucibus condimentum. Morbi convallis dapibus tortor id volutpat. In hac habitasse platea dictumst. Maecenas eu quam quis eros fermentum consectetur. Fusce et justo vel diam vehicula condimentum.",
-];
+// interface AllProjects {
 
-export default function ProjectsPage() {
+// }
+
+export default async function ProjectsPage() {
+  const allProjects = await getProjects();
+  
+  
+  console.log("First project id is " + allProjects[0].id);
   return (
     <section className={"min-h-[400px] m-2 mt-[90px]"}>
       {/* Page header */}
@@ -24,18 +30,18 @@ export default function ProjectsPage() {
             <Chip text={"24-25"}></Chip>
           </div>
           <div>
-            <ProjectCard
-              projectName={project1[0]}
-              description={project1[1]}
-            ></ProjectCard>
-            <ProjectCard
-              projectName={project1[0]}
-              description={project1[1]}
-            ></ProjectCard>
-            <ProjectCard
-              projectName={project1[0]}
-              description={project1[1]}
-            ></ProjectCard>
+            {allProjects.map((project, index) =>
+             (
+              <ProjectCard
+              key={index}
+              projectId= {project.id}
+              projectName={project.title}
+              description={project.description}
+              defaultImage={project.defaultImage}
+            >
+            </ProjectCard>
+             ))
+            }
           </div>
         </div>
       </div>
