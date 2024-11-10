@@ -48,6 +48,7 @@ export default function ProjectForm({
     if (participants.length === 0) {
       return alert("Please select at least one participant.");
     }
+
     setLoading("Creating project...", "message");
     const createProject = await fetch("/api/projects", {
       method: type,
@@ -62,21 +63,22 @@ export default function ProjectForm({
     const createResult = (await createProject.json()) as { id: string };
 
     if (defaultImage) {
+      console.log("uploading default image");
       await uploadImages(createResult.id, [defaultImage]);
     }
     if (images.length > 0) {
+      console.log("uploading images");
       await uploadImages(createResult.id, images);
     }
+
     const updateImages = await fetch("/api/projects", {
       method: "PUT",
       body: JSON.stringify({
         id: createResult.id,
         ...(defaultImage && { defaultImage: defaultImage.name }),
-        ...(images.length > 0
-          ? {
-              images: images.map((image) => image.name),
-            }
-          : {}),
+        ...(images.length > 0 && {
+          images: images.map((data) => data.name),
+        }),
       }),
     });
 
@@ -167,13 +169,15 @@ export default function ProjectForm({
               className={"w-full"}
             />
           ) : (
-            <Image
-              src={`https://image.gdgyonsei.moveto.kr/projects/${projectData?.id}/${projectData?.defaultImage}`}
-              alt={"Default Image"}
-              width={300}
-              height={300}
-              className={"w-full"}
-            />
+            projectData?.defaultImage && (
+              <Image
+                src={`https://image.gdgyonsei.moveto.kr/projects/${projectData?.id}/${projectData?.defaultImage}`}
+                alt={"Default Image"}
+                width={300}
+                height={300}
+                className={"w-full"}
+              />
+            )
           )}
         </div>
 

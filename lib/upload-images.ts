@@ -19,7 +19,7 @@ export default async function uploadImages(folderId: string, images: File[]) {
   for (const url of imagesUploadUrl) {
     await fetch(url, {
       method: "PUT",
-      body: images.shift(),
+      body: images[imagesUploadUrl.indexOf(url)],
     });
   }
   return imagesData;

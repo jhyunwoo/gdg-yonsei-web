@@ -83,6 +83,15 @@ export async function PUT(request: Request) {
 
   console.log(body);
 
+  console.log({
+    ...(body.title ? { title: body.title } : {}),
+    ...(body.description ? { description: body.description } : {}),
+    ...(body.github ? { github: body.github } : {}),
+    ...(body.participants ? { participants: body.participants } : {}),
+    ...(body.defaultImage ? { defaultImage: body.defaultImage } : {}),
+    ...(body.images ? { images: body.images } : {}),
+  });
+
   await db
     .update(projects)
     .set({
