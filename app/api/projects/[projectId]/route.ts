@@ -1,5 +1,11 @@
 import db from "@/db";
-import { projects, projectsMembers, users } from "@/db/schema";
+import {
+  projects,
+  projectsMembers,
+  projectsTags,
+  tags,
+  users,
+} from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
@@ -44,5 +50,14 @@ export async function GET(
     .leftJoin(projects, eq(projectsMembers.projectId, projects.id))
     .where(eq(projects.id, projectId));
 
-  return NextResponse.json({ projectData, participants });
+  const tagData = await db
+    .select({
+      name: tags.name,
+    })
+    .from(projectsTags)
+    .leftJoin(projects, eq(projectsTags.projectId, projects.id))
+    .leftJoin(tags, eq(projectsTags.tagId, tags.id))
+    .where(eq(projects.id, projectId));
+
+  return NextResponse.json({ projectData, participants, tags: tagData });
 }

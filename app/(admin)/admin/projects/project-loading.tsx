@@ -8,7 +8,7 @@ export default function ProjectLoading() {
     return (
       <div
         className={
-          "fixed w-screen h-screen z-20 flex items-center justify-center top-0 left-0 bg-neutral-500/50"
+          "fixed w-screen h-screen z-20 flex items-center justify-center top-0 left-0 bg-neutral-500/50 p-4"
         }
       >
         <div

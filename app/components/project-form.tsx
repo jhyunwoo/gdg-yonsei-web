@@ -15,6 +15,7 @@ export interface InsertProjectType {
   title: string;
   description: string;
   github: string;
+  tags: string;
 }
 
 export default function ProjectForm({
@@ -64,6 +65,7 @@ export default function ProjectForm({
         description: data.description.split("\n"),
         github: data.github,
         participants: participants,
+        tags: data.tags.split(","),
       }),
     });
     const createResult = (await createProject.json()) as { id: string };
@@ -142,6 +144,12 @@ export default function ProjectForm({
         className={"edit-form"}
         placeholder={"Github URL"}
         {...register("github")}
+      />
+      <div>Tag</div>
+      <input
+        className={"edit-form"}
+        placeholder={"Tags (comma separated)"}
+        {...register("tags")}
       />
       <div>Participants</div>
       <div className={"grid grid-cols-2 gap-2"}>

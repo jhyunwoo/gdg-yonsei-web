@@ -9,7 +9,7 @@ import Image from "next/image";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 
 export default function ProjectData({ projectId }: { projectId: string }) {
-  const { projectData, participants } = useProject(projectId);
+  const { projectData, participants, tags } = useProject(projectId);
   console.log(projectData);
   return (
     <div className={"bg-white p-2 rounded-xl gap-4 flex flex-col"}>
@@ -60,6 +60,23 @@ export default function ProjectData({ projectId }: { projectId: string }) {
               className={"bg-neutral-100 p-1 px-3 rounded-lg text-center"}
             >
               {participant.name}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className={"w-full"}>
+        <div className={"text-sm text-neutral-700"}>Tags</div>
+        <div
+          className={
+            "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 w-full"
+          }
+        >
+          {tags?.map((tag) => (
+            <div
+              key={tag.name}
+              className={"bg-neutral-100 p-1 px-3 rounded-lg text-center"}
+            >
+              {tag.name}
             </div>
           ))}
         </div>

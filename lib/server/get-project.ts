@@ -1,5 +1,11 @@
 import db from "@/db";
-import { projects, projectsMembers, users } from "@/db/schema";
+import {
+  projects,
+  projectsMembers,
+  projectsTags,
+  tags,
+  users,
+} from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 /**
@@ -30,7 +36,16 @@ export default async function getProject(projectId: string) {
     .leftJoin(projects, eq(projectsMembers.projectId, projects.id))
     .where(eq(projects.id, projectData[0].id));
 
-  return { project: projectData[0], participants: participants };
+  const tagData = await db
+    .select({
+      name: tags.name,
+    })
+    .from(projectsTags)
+    .leftJoin(projects, eq(projectsTags.projectId, projects.id))
+    .leftJoin(tags, eq(projectsTags.tagId, tags.id))
+    .where(eq(projects.id, projectId));
+
+  return { project: projectData[0], participants: participants, tags: tagData };
 }
 
 /**
@@ -56,5 +71,8 @@ export interface ProjectType {
     part: string | null;
     generation: number | null;
     active: boolean | null;
+  }[];
+  tags: {
+    name: string | null;
   }[];
 }

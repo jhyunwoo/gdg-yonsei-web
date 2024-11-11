@@ -7,7 +7,7 @@ export default function LoadingAlert() {
 
   return (
     <div
-      className={`fixed z-20 top-8 right-8 p-2 bg-white rounded-lg px-4 ring-[1px] text-sm transition-all ${loading ? "" : "hidden"} ${type === "message" ? "ring-sky-600 text-blue-700" : ""} ${type === "complete" ? "" : ""}`}
+      className={`fixed z-20 top-8 right-8 p-2 bg-white rounded-lg px-4 ring-2 text-sm transition-all ${loading ? "" : "hidden"} ${type === "message" ? "ring-sky-600 text-blue-700" : ""} ${type === "complete" ? "" : ""}`}
     >
       {loading}
     </div>
