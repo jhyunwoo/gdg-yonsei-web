@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { auth } from "@/auth";
-import { redirect } from "next/navigation";
 import Profile from "@/app/(admin)/profile";
 import {
   CalendarDaysIcon,
@@ -10,10 +9,14 @@ import {
 } from "@heroicons/react/24/outline";
 import SidebarController from "@/app/components/sidebar-controller";
 import NavigationButton from "@/app/components/navigation-button";
+import getUserRole from "@/lib/get-user-role";
+import PermissionDenied from "@/app/components/permission-denied";
 
 export default async function Sidebar() {
   const session = await auth();
-  if (!session?.user?.id) redirect("/auth/sign-in");
+  if (!session?.user?.id) return <PermissionDenied />;
+
+  const userRole = await getUserRole(session.user.id);
 
   return (
     <SidebarController>
@@ -30,18 +33,22 @@ export default async function Sidebar() {
           <HomeIcon className={"size-6"} />
           <p>Home</p>
         </NavigationButton>
-        <NavigationButton href={"/admin/members"}>
-          <UsersIcon className={"size-6"} />
-          <p>Members</p>
-        </NavigationButton>
+        {userRole !== "member" && (
+          <NavigationButton href={"/admin/members"}>
+            <UsersIcon className={"size-6"} />
+            <p>Members</p>
+          </NavigationButton>
+        )}
         <NavigationButton href={"/admin/projects"}>
           <FolderIcon className={"size-6"} />
           <p>Projects</p>
         </NavigationButton>
-        <NavigationButton href={"/admin/sessions"}>
-          <CalendarDaysIcon className={"size-6"} />
-          <p>Sessions</p>
-        </NavigationButton>
+        {userRole !== "member" && (
+          <NavigationButton href={"/admin/sessions"}>
+            <CalendarDaysIcon className={"size-6"} />
+            <p>Sessions</p>
+          </NavigationButton>
+        )}
       </div>
     </SidebarController>
   );

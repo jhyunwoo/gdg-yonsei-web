@@ -108,7 +108,7 @@ export const authenticators = pgTable(
 export const projects = pgTable("projects", {
   id: uuid("id").defaultRandom().primaryKey(),
   title: text("title").notNull(),
-  description: text("description"),
+  description: jsonb("description").$type<string[]>().default([]),
   defaultImage: text("defaultImage").notNull(),
   images: jsonb("images").$type<string[]>().default([]),
   github: text("github"),
@@ -117,6 +117,23 @@ export const projects = pgTable("projects", {
   authorId: text("authorId")
     .notNull()
     .references(() => users.id),
+});
+
+export const tags = pgTable("tags", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  name: text("name").notNull(),
+});
+
+export const projectsTags = pgTable("projectsTags", {
+  projectId: uuid()
+    .notNull()
+    .references(() => projects.id, {
+      onDelete: "cascade",
+      onUpdate: "cascade",
+    }),
+  tagId: uuid()
+    .notNull()
+    .references(() => tags.id, { onDelete: "cascade", onUpdate: "cascade" }),
 });
 
 export const projectsMembers = pgTable("projectsMembers", {
@@ -129,4 +146,16 @@ export const projectsMembers = pgTable("projectsMembers", {
   userId: text()
     .notNull()
     .references(() => users.id, { onDelete: "cascade", onUpdate: "cascade" }),
+});
+
+export const session = pgTable("sessions", {
+  id: uuid("id").defaultRandom().notNull().primaryKey(),
+  title: text("title").notNull(),
+  description: jsonb("description").$type<string[]>().default([]),
+  defaultImage: text("defaultImage").notNull(),
+  images: jsonb("images").$type<string[]>().default([]),
+  date: timestamp("date").notNull(),
+  authorId: text("authorId")
+    .notNull()
+    .references(() => users.id),
 });

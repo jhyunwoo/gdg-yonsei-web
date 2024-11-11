@@ -1,25 +1,25 @@
+"use client";
+
 import AdminPageLayout from "@/app/components/admin-page-layout";
 import AdminPageTitle from "@/app/components/admin-page-title";
 import Link from "next/link";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
-import ProjectForm from "@/app/components/project-form";
+import SessionForm from "@/app/(admin)/admin/sessions/session-form";
 
-export default function CreateProjectPage() {
+export default function CreateSessionPage() {
   return (
     <AdminPageLayout>
-      <div className={"py-1 flex flex-col gap-2 justify-center"}>
+      <div className={"flex flex-col gap-2"}>
         <Link
-          href={"/admin/projects"}
+          href={"/admin/sessions"}
           className={"flex gap-2 items-center hover:underline"}
         >
           <ChevronLeftIcon className={"size-6"} />
-          <p>Projects</p>
+          <p>Sessions</p>
         </Link>
-        <AdminPageTitle>Create Project</AdminPageTitle>
+        <AdminPageTitle>Create Session</AdminPageTitle>
       </div>
-      <div>
-        <ProjectForm type={"POST"} />
-      </div>
+      <SessionForm />
     </AdminPageLayout>
   );
 }

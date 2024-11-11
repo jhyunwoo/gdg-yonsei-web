@@ -6,4 +6,7 @@
     .edit-form {
         @apply p-2 bg-neutral-100 rounded-full px-4 font-semibold text-lg w-full;
     }
+    .text-area-from {
+        @apply p-2 bg-neutral-100 rounded-lg px-4 font-semibold text-lg w-full;
+    }
 }

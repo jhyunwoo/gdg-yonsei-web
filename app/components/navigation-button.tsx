@@ -20,6 +20,7 @@ export default function NavigationButton({
       }
       onClick={close}
       href={href}
+      prefetch={true}
     >
       {children}
     </Link>

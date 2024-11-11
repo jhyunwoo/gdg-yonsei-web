@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import validateUserAccess from "@/lib/validate-user-access";
+import validateUserAccess from "@/lib/server/validate-user-access";
 import db from "@/db";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";

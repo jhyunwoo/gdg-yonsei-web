@@ -1,1 +1,0 @@
-ALTER TABLE "projects" ALTER COLUMN "createdAt" SET DEFAULT now();

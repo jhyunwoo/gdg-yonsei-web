@@ -3,7 +3,7 @@ import AdminPageTitle from "@/app/components/admin-page-title";
 import Link from "next/link";
 import ProjectList from "@/app/(admin)/admin/projects/project-list";
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
   return (
     <AdminPageLayout>
       <div className={"flex items-center gap-2"}>
