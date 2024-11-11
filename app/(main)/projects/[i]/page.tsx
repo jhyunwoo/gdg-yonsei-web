@@ -31,14 +31,14 @@ interface ProjectPageProps {
   params: {
     i: string;
   };
-  // members: ProjectMembers | null;\
 }
 
 const ProjectDescPage: FC<ProjectPageProps> = async ({ params }) => {
   const projectId: string = params.i;
 
-  const project = await getProject(projectId);
-  const members = await getProjectMembers(projectId);
+  const projectData = await getProject(projectId);
+  const project = projectData.project;
+  const members = projectData.participants //await getProjectMembers(projectId);
 
   if (!project) {
     return (
@@ -51,28 +51,37 @@ const ProjectDescPage: FC<ProjectPageProps> = async ({ params }) => {
   const imageLinks = project.images? project.images.map((imageFileName) => getProjectImageLink(project.id, imageFileName)) : []; // return empty array if images is null
 
   return (
-    <section className={"min-h-[400px] m-2 mt-[90px]"}>
+    <section className={"min-h-[800px] mt-[90px]"}>
       {/* Page header */}
-      <div className={"w-[70%] max-w-[1300px] mx-auto my-2"}>
+      <div className={"w-full lg:w-[70%] max-w-[1300px] ml-4 lg:mx-auto my-2"}>
         <h1 className={"text-4xl font-bold"}>{project.title}</h1>
       </div>
       <hr></hr>
       {/* Project Description */}
-      <div className={"w-[70%] max-w-[1300px] mx-auto"}>
+      <div className={"w-full lg:w-[70%] max-w-[1300px] ml-4 lg:mx-auto"}>
         <div className="flex flex-col gap-4">
           {/* Carousel */}
-          <CarouselComponent images={imageLinks}></CarouselComponent>
+          <div className="w-full my-2">
+            <CarouselComponent projectId={project.id} images={imageLinks}></CarouselComponent>
+          </div>
           {/* TODO Mini carousel for image selection */}
           {/* Contributors */}
           <h1 className={"text-2xl"}>Contributors</h1>
           <div className={"flex flex-row gap-2"}>
             {members.map((contributor, index) => (
-              <Chip key={index} text={contributor} />
+              <Chip key={index} text={contributor.name? contributor.name: "Anonymous"} />
             ))}
           </div>
           <h1 className={"text-2xl"}>About this project</h1>
-          {project.description}
+          {project.description?.map((paragraph, index) => (
+            <p key={index}>{paragraph}</p>
+          ))}
           <h1 className={"text-2xl"}>Links</h1>
+          {project.github? 
+            <Link href={"https://" + project.github} className={"hover:underline"}>
+              Github link
+            </Link>
+          : ""} {/* TODO grab convention for github links */}
           <Link href={"/projects"} className={"hover:underline"}>
             Back to projects
           </Link>
