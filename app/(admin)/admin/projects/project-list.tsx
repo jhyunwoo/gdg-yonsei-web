@@ -11,7 +11,7 @@ export default function ProjectList() {
   return (
     <div
       className={
-        "w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 p-4"
+        "w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 py-4"
       }
     >
       {projectsData?.map((project) => (
@@ -19,6 +19,7 @@ export default function ProjectList() {
           href={`/admin/projects/${project.id}`}
           key={project.id}
           className={"bg-white p-2 rounded-lg ring-2 ring-neutral-700"}
+          prefetch={true}
         >
           <div className={"text-xl font-semibold text-center p-4"}>
             {project.title}

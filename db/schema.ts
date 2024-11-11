@@ -147,3 +147,16 @@ export const projectsMembers = pgTable("projectsMembers", {
     .notNull()
     .references(() => users.id, { onDelete: "cascade", onUpdate: "cascade" }),
 });
+
+export const session = pgTable("sessions", {
+  id: uuid("id").defaultRandom().notNull().primaryKey(),
+  title: text("title").notNull(),
+  description: jsonb("description").$type<string[]>().default([]),
+  defaultImage: text("defaultImage").notNull(),
+  images: jsonb("images").$type<string[]>().default([]),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  editedAt: timestamp("editedAt").notNull().defaultNow(),
+  authorId: text("authorId")
+    .notNull()
+    .references(() => users.id),
+});

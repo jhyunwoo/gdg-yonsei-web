@@ -8,8 +8,9 @@ import { useRouter } from "next/navigation";
 import getMemberName from "@/lib/get-member-name";
 import { ParticipantsType, ProjectType } from "@/lib/hooks/useProject";
 import uploadImages from "@/lib/upload-images";
-import Image from "next/image";
 import { useProjectLoading } from "@/lib/stores/project-loading";
+import SingleImageUploader from "@/app/components/single-image-uploader";
+import MultipleImageUploader from "@/app/components/multiple-image-uploader";
 
 export interface InsertProjectType {
   title: string;
@@ -22,10 +23,12 @@ export default function ProjectForm({
   projectData,
   participantsData,
   type,
+  tagsData,
 }: {
   projectData?: ProjectType;
   participantsData?: ParticipantsType[];
   type: "POST" | "PUT";
+  tagsData?: { name: string | null }[] | undefined;
 }) {
   const { register, handleSubmit, setValue } = useForm<InsertProjectType>();
   const { projectMembersData } = useProjectMembers();
@@ -120,12 +123,20 @@ export default function ProjectForm({
     if (participantsData) {
       setParticipants(participantsData.map((participant) => participant.id!));
     }
+    if (tagsData && tagsData.length > 0) {
+      let tagString = "";
+      for (const tag of tagsData) {
+        tagString += tag.name + ",";
+      }
+      setValue("tags", tagString);
+    }
   }, [
     participantsData,
     projectData?.description,
     projectData?.github,
     projectData?.title,
     setValue,
+    tagsData,
   ]);
 
   return (
@@ -165,83 +176,24 @@ export default function ProjectForm({
         ))}
       </div>
       <div className={"w-full grid grid-cols-1 lg:grid-cols-2 gap-2"}>
-        <div className={"flex flex-col gap-2"}>
-          <div>Default Image</div>
-          <label
-            className="p-2 px-4 rounded-full bg-neutral-950 text-white text-center hover:bg-neutral-800 transition-colors cursor-pointer"
-            htmlFor="defaultImageInput"
-          >
-            Select Default Image
-          </label>
-          <input
-            className={"hidden"}
-            id="defaultImageInput"
-            type={"file"}
-            accept={"image/*"}
-            onChange={(event) => {
-              setDefaultImage(event.target.files?.[0]);
-              event.currentTarget.value = "";
-            }}
-          />
-          {defaultImage ? (
-            <Image
-              src={URL.createObjectURL(defaultImage)}
-              alt={"Default Image"}
-              width={300}
-              height={300}
-              className={"w-full"}
-            />
-          ) : (
-            projectData?.defaultImage && (
-              <Image
-                src={`https://image.gdgyonsei.moveto.kr/projects/${projectData?.id}/${projectData?.defaultImage}`}
-                alt={"Default Image"}
-                width={300}
-                height={300}
-                className={"w-full"}
-              />
-            )
-          )}
-        </div>
+        <SingleImageUploader
+          title={"Default Image"}
+          setImage={setDefaultImage}
+          image={defaultImage}
+          prevImage={
+            projectData?.defaultImage
+              ? `https://image.gdgyonsei.moveto.kr/projects/${projectData?.id}/${projectData.defaultImage}`
+              : undefined
+          }
+        />
 
-        <div className={"flex flex-col gap-2"}>
-          <div>Images</div>
-          <label
-            className="p-2 px-4 rounded-full bg-neutral-950 text-white text-center hover:bg-neutral-800 transition-colors cursor-pointer"
-            htmlFor="imagesInput"
-          >
-            Select Images
-          </label>
-          <input
-            className={"hidden"}
-            id="imagesInput"
-            type={"file"}
-            multiple={true}
-            accept={"image/*"}
-            onChange={(event) => setImages(Array.from(event.target.files!))}
-          />
-          {images.length > 0
-            ? images?.map((image) => (
-                <Image
-                  key={image.name}
-                  src={URL.createObjectURL(image)}
-                  alt={"Image"}
-                  width={300}
-                  height={300}
-                  className={"w-full"}
-                />
-              ))
-            : projectData?.images?.map((image) => (
-                <Image
-                  key={image}
-                  src={`https://image.gdgyonsei.moveto.kr/projects/${projectData?.id}/${image}`}
-                  alt={"Image"}
-                  width={300}
-                  height={300}
-                  className={"w-full"}
-                />
-              ))}
-        </div>
+        <MultipleImageUploader
+          title={"Images"}
+          setImages={setImages}
+          images={images}
+          prevImages={projectData?.images}
+          projectId={projectData?.id}
+        />
       </div>
       <div className={"w-full flex flex-col"}>
         <div>Description</div>

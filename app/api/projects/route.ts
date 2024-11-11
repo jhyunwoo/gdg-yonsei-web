@@ -137,7 +137,11 @@ export async function PUT(request: Request) {
       await db.delete(projectsTags).where(eq(projectsTags.projectId, body.id));
       const createTags = await db
         .insert(tags)
-        .values(body.tags.map((tag) => ({ name: tag })))
+        .values(
+          body.tags
+            .map((tag) => ({ name: tag }))
+            .filter((tag) => tag.name !== ""),
+        )
         .returning({ id: tags.id });
 
       const linkProjectToTags: { projectId: string; tagId: string }[] = [];

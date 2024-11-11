@@ -71,14 +71,16 @@ export default function ProjectData({ projectId }: { projectId: string }) {
             "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 w-full"
           }
         >
-          {tags?.map((tag) => (
-            <div
-              key={tag.name}
-              className={"bg-neutral-100 p-1 px-3 rounded-lg text-center"}
-            >
-              {tag.name}
-            </div>
-          ))}
+          {tags?.map((tag) =>
+            tag.name ? (
+              <div
+                key={tag.name}
+                className={"bg-neutral-100 p-1 px-3 rounded-lg text-center"}
+              >
+                {tag.name}
+              </div>
+            ) : null,
+          )}
         </div>
       </div>
       <div className={"w-full grid-cols-1 grid lg:grid-cols-2 gap-2"}>
