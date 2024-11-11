@@ -12,7 +12,7 @@ export default function SingleImageUploader({
   title: string;
   setImage: (value: SetStateAction<File | undefined>) => void;
   image: File | undefined;
-  prevImage: string | null | undefined;
+  prevImage?: string | null | undefined;
 }) {
   return (
     <div className={"flex flex-col gap-2"}>

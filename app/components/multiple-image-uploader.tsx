@@ -13,8 +13,8 @@ export default function MultipleImageUploader({
   title: string;
   setImages: Dispatch<SetStateAction<File[]>>;
   images: File[] | undefined;
-  prevImages: string[] | null | undefined;
-  projectId: string | null | undefined;
+  prevImages?: string[] | null | undefined;
+  projectId?: string | null | undefined;
 }) {
   console.log(images);
   return (

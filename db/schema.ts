@@ -154,8 +154,7 @@ export const session = pgTable("sessions", {
   description: jsonb("description").$type<string[]>().default([]),
   defaultImage: text("defaultImage").notNull(),
   images: jsonb("images").$type<string[]>().default([]),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  editedAt: timestamp("editedAt").notNull().defaultNow(),
+  date: timestamp("date").notNull(),
   authorId: text("authorId")
     .notNull()
     .references(() => users.id),
