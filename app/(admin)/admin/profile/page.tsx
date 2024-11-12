@@ -18,19 +18,17 @@ export default async function ProfilePage() {
   return (
     <AdminPageLayout>
       <AdminPageTitle>Profile</AdminPageTitle>
-      <div className={"flex gap-2"}>
+      <div className={"flex flex-col md:flex-row gap-2"}>
         {userData.image ? (
           <Image
             src={userData.image!}
             alt={"Profile Image"}
             width={100}
             height={100}
-            className={"w-28 md:w-56 md:h-56 h-28 rounded-xl"}
+            className={"w-56 h-56 rounded-xl"}
           />
         ) : (
-          <div
-            className={"w-28 md:w-56 md:h-56 h-28 bg-neutral-500 rounded-xl"}
-          />
+          <div className={"w-56 h-56bg-neutral-500 rounded-xl"} />
         )}
         <div className={"w-full grid grid-cols-1 md:grid-cols-2"}>
           <DataWithTitle title={"Github Name"} data={userData.name} />
