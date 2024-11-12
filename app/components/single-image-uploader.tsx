@@ -8,12 +8,19 @@ export default function SingleImageUploader({
   setImage,
   image,
   prevImage,
+  projectId,
+  type,
 }: {
   title: string;
   setImage: (value: SetStateAction<File | undefined>) => void;
   image: File | undefined;
   prevImage?: string | null | undefined;
+  projectId?: string;
+  type: string;
 }) {
+  console.log(
+    `https://image.gdgyonsei.moveto.kr/${type}/${projectId}/${image}`,
+  );
   return (
     <div className={"flex flex-col gap-2"}>
       <div>{title}</div>
@@ -41,17 +48,15 @@ export default function SingleImageUploader({
           height={300}
           className={"w-full"}
         />
-      ) : (
-        prevImage && (
-          <Image
-            src={prevImage}
-            alt={"Default Image"}
-            width={300}
-            height={300}
-            className={"w-full"}
-          />
-        )
-      )}
+      ) : prevImage && projectId ? (
+        <Image
+          src={`https://image.gdgyonsei.moveto.kr/${type}/${projectId}/${prevImage}`}
+          alt={"Default Image"}
+          width={300}
+          height={300}
+          className={"w-full"}
+        />
+      ) : null}
     </div>
   );
 }

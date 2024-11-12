@@ -5,7 +5,6 @@ import { desc, eq } from "drizzle-orm";
 import validateUserAccess from "@/lib/server/validate-user-access";
 
 export async function GET() {
-  console.log(await validateUserAccess(["lead", "core"]));
   // lead 와 core 만 members 데이터 조회 허용
   if (!(await validateUserAccess(["lead", "core"]))) {
     // 권한 없으면 데이터 조회 거부

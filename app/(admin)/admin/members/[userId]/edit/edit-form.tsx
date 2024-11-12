@@ -21,8 +21,7 @@ export default function EditForm({ userId }: { userId: string }) {
       method: "PUT",
       body: JSON.stringify(data),
     });
-    const result = await requestUpdate.json();
-    console.log(result);
+    await requestUpdate.json();
     router.replace(`/admin/members/${userId}`);
   };
 

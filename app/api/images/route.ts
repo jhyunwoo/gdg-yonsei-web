@@ -12,6 +12,7 @@ export async function POST(request: Request) {
   const body = (await request.json()) as {
     folderId: string;
     files: { name: string; type: string }[];
+    type: string;
   };
 
   const r2 = createR2Client();
@@ -19,7 +20,7 @@ export async function POST(request: Request) {
   const signedUrls = [];
 
   for (let i = 0; i < body.files.length; i += 1) {
-    const fileKey = "projects/" + body.folderId + "/" + body.files[i].name;
+    const fileKey = body.type + "/" + body.folderId + "/" + body.files[i].name;
 
     const command = new PutObjectCommand({
       Bucket: "gdgoc-yonsei",

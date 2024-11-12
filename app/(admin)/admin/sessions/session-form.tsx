@@ -1,11 +1,15 @@
 "use client";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SingleImageUploader from "@/app/components/single-image-uploader";
 import MultipleImageUploader from "@/app/components/multiple-image-uploader";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useRouter } from "next/navigation";
+import uploadImages from "@/lib/upload-images";
+import { useModalLoading } from "@/lib/stores/modal-loading";
+import { SessionType } from "@/lib/hooks/useSession";
+import { format } from "date-fns";
 
 const schema = yup
   .object({
@@ -26,25 +30,79 @@ interface SessionInsertType {
   description: string;
   date: string;
 }
-export default function SessionForm({}) {
-  const { register, handleSubmit } = useForm<SessionInsertType>({
+
+export default function SessionForm({
+  sessionData,
+  type,
+}: {
+  sessionData?: SessionType;
+  type: "POST" | "PUT";
+}) {
+  const { register, handleSubmit, setValue } = useForm<SessionInsertType>({
     resolver: yupResolver(schema),
   });
+
+  const { setModalLoading, clearLoading } = useModalLoading((state) => state);
 
   const router = useRouter();
 
   const onSubmit: SubmitHandler<SessionInsertType> = async (data) => {
     const createSession = await fetch("/api/sessions", {
-      method: "POST",
-      body: JSON.stringify(data),
+      method: type,
+      body: JSON.stringify({
+        ...(type === "PUT" && { id: sessionData?.id }),
+        title: data.title,
+        description: data.description.split("\n"),
+        date: data.date,
+      }),
     });
-    const result = await createSession.json();
-    console.log(result);
+    const result = (await createSession.json()) as { id: string };
+    if (defaultImage) {
+      setModalLoading("Upload Default Image...", 30);
+      await uploadImages(result.id, [defaultImage], "sessions");
+    }
+    if (images.length > 0) {
+      setModalLoading("Upload Images...", 50);
+      await uploadImages(result.id, images, "sessions");
+    }
+    const updateImages = await fetch("/api/sessions", {
+      method: "PUT",
+      body: JSON.stringify({
+        id: result.id,
+        ...(defaultImage && { defaultImage: defaultImage.name }),
+        ...(images.length > 0 && {
+          images: images.map((data) => data.name),
+        }),
+      }),
+    });
+
+    await updateImages.json();
+
+    setModalLoading("Complete Creating Project", 100);
+
     router.replace("/admin/sessions");
+    clearLoading();
   };
 
   const [defaultImage, setDefaultImage] = useState<File>();
   const [images, setImages] = useState<File[]>([]);
+
+  useEffect(() => {
+    if (sessionData?.title) {
+      setValue("title", sessionData.title);
+    }
+    if (sessionData?.description) {
+      setValue("description", sessionData.description.join("\n"));
+    }
+    if (sessionData?.date) {
+      setValue("date", format(sessionData.date, "yyyy/MM/dd"));
+    }
+  }, [
+    sessionData?.date,
+    sessionData?.description,
+    sessionData?.title,
+    setValue,
+  ]);
 
   return (
     <form
@@ -78,12 +136,18 @@ export default function SessionForm({}) {
       <div className={"w-full grid grid-cols-1 lg:grid-cols-2 gap-2"}>
         <SingleImageUploader
           title={"Default Image"}
+          type={"sessions"}
+          projectId={sessionData?.id}
           setImage={setDefaultImage}
+          prevImage={sessionData?.defaultImage}
           image={defaultImage}
         />
         <MultipleImageUploader
+          type={"sessions"}
           title={"Images"}
+          projectId={sessionData?.id}
           setImages={setImages}
+          prevImages={sessionData?.images}
           images={images}
         />
       </div>

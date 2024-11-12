@@ -1,21 +1,21 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
-interface ProjectLoadingState {
+interface ModalLoadingState {
   state: string;
   percentage: number;
 }
 
-interface ProjectLoadingAction {
-  setProjectLoading: (message: string, percentage: number) => void;
+interface ModalLoadingAction {
+  setModalLoading: (message: string, percentage: number) => void;
   clearLoading: () => void;
 }
 
-export const useProjectLoading = create(
-  devtools<ProjectLoadingState & ProjectLoadingAction>((set) => ({
+export const useModalLoading = create(
+  devtools<ModalLoadingState & ModalLoadingAction>((set) => ({
     state: "",
     percentage: 0,
-    setProjectLoading: (message: string, percentage: number) =>
+    setModalLoading: (message: string, percentage: number) =>
       set(() => ({ state: message, percentage: percentage })),
     clearLoading: () => set(() => ({ state: "", percentage: 0 })),
   })),

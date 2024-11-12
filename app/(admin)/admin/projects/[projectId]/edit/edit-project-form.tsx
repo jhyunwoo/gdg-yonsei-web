@@ -1,6 +1,6 @@
 "use client";
 
-import ProjectForm from "@/app/components/project-form";
+import ProjectForm from "@/app/(admin)/admin/projects/project-form";
 import useProject from "@/lib/hooks/useProject";
 
 export default function EditProjectForm({ projectId }: { projectId: string }) {

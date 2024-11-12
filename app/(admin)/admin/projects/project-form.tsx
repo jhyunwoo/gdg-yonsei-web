@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import getMemberName from "@/lib/get-member-name";
 import { ParticipantsType, ProjectType } from "@/lib/hooks/useProject";
 import uploadImages from "@/lib/upload-images";
-import { useProjectLoading } from "@/lib/stores/project-loading";
+import { useModalLoading } from "@/lib/stores/modal-loading";
 import SingleImageUploader from "@/app/components/single-image-uploader";
 import MultipleImageUploader from "@/app/components/multiple-image-uploader";
 import useTags from "@/lib/hooks/useTags";
@@ -36,9 +36,7 @@ export default function ProjectForm({
   const { projectMembersData } = useProjectMembers();
   const { tagsData: tags } = useTags();
   const router = useRouter();
-  const { setProjectLoading, clearLoading } = useProjectLoading(
-    (state) => state,
-  );
+  const { setModalLoading, clearLoading } = useModalLoading((state) => state);
 
   const [defaultImage, setDefaultImage] = useState<File>();
   const [images, setImages] = useState<File[]>([]);
@@ -59,7 +57,7 @@ export default function ProjectForm({
       return alert("Please select at least one participant.");
     }
 
-    setProjectLoading(
+    setModalLoading(
       type === "POST" ? "Creating Project..." : "Updating Project...",
       0,
     );
@@ -77,12 +75,12 @@ export default function ProjectForm({
     const createResult = (await createProject.json()) as { id: string };
 
     if (defaultImage) {
-      setProjectLoading("Upload Default Image...", 30);
-      await uploadImages(createResult.id, [defaultImage]);
+      setModalLoading("Upload Default Image...", 30);
+      await uploadImages(createResult.id, [defaultImage], "projects");
     }
     if (images.length > 0) {
-      setProjectLoading("Upload Images...", 50);
-      await uploadImages(createResult.id, images);
+      setModalLoading("Upload Images...", 50);
+      await uploadImages(createResult.id, images, "projects");
     }
 
     const updateImages = await fetch("/api/projects", {
@@ -96,10 +94,9 @@ export default function ProjectForm({
       }),
     });
 
-    const updateResult = await updateImages.json();
-    console.log(updateResult);
+    await updateImages.json();
 
-    setProjectLoading(
+    setModalLoading(
       type === "POST"
         ? "Complete Creating Project"
         : "Complete Updating Project",
@@ -195,19 +192,17 @@ export default function ProjectForm({
           title={"Default Image"}
           setImage={setDefaultImage}
           image={defaultImage}
-          prevImage={
-            projectData?.defaultImage
-              ? `https://image.gdgyonsei.moveto.kr/projects/${projectData?.id}/${projectData.defaultImage}`
-              : undefined
-          }
+          prevImage={projectData?.defaultImage}
+          projectId={projectData?.id}
+          type={"projects"}
         />
-
         <MultipleImageUploader
           title={"Images"}
           setImages={setImages}
           images={images}
           prevImages={projectData?.images}
           projectId={projectData?.id}
+          type={"projects"}
         />
       </div>
       <div className={"w-full flex flex-col"}>

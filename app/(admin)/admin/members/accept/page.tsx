@@ -23,10 +23,9 @@ export default function AcceptMembersPage() {
         members: selected,
       }),
     });
-    const result = await requestAcceptMembers.json();
+    await requestAcceptMembers.json();
     setSelected([]);
     await mutateUnacceptedMembers();
-    console.log(result);
     clearLoading();
   }
 

@@ -1,4 +1,8 @@
-export default async function uploadImages(folderId: string, images: File[]) {
+export default async function uploadImages(
+  folderId: string,
+  images: File[],
+  type: string,
+) {
   const imagesData = [];
 
   for (let i = 0; i < images.length; i += 1) {
@@ -13,6 +17,7 @@ export default async function uploadImages(folderId: string, images: File[]) {
     body: JSON.stringify({
       folderId: folderId,
       files: imagesData,
+      type: type,
     }),
   });
   const imagesUploadUrl = (await requestImagesUploadUrl.json()) as string[];

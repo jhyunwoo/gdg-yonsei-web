@@ -23,10 +23,8 @@ export default function MembersPage() {
       }),
     });
     setSelected([]);
-    const result = await requestDeleteMembers.json();
+    await requestDeleteMembers.json();
     await mutateMembers();
-
-    console.log(result);
     clearLoading();
   }
   async function activeMembers() {
@@ -38,10 +36,8 @@ export default function MembersPage() {
         members: selected,
       }),
     });
-    const result = await requestDeleteMembers.json();
+    await requestDeleteMembers.json();
     await mutateMembers();
-
-    console.log(result);
     clearLoading();
   }
   async function alumniMembers() {
@@ -53,10 +49,9 @@ export default function MembersPage() {
         members: selected,
       }),
     });
-    const result = await requestDeleteMembers.json();
+    await requestDeleteMembers.json();
     await mutateMembers();
 
-    console.log(result);
     clearLoading();
   }
 

@@ -22,7 +22,7 @@ export default function SessionsList() {
         >
           <div className={"text-xl font-bold"}>{session.title}</div>
           <div className={"text-sm text-neutral-500"}>
-            {getKoDate(session.date)}
+            {getKoDate(session.date, false)}
           </div>
         </Link>
       ))}

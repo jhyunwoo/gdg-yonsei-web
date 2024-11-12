@@ -9,14 +9,15 @@ export default function MultipleImageUploader({
   images,
   prevImages,
   projectId,
+  type,
 }: {
   title: string;
   setImages: Dispatch<SetStateAction<File[]>>;
   images: File[] | undefined;
   prevImages?: string[] | null | undefined;
   projectId?: string | null | undefined;
+  type: string;
 }) {
-  console.log(images);
   return (
     <div className={"flex flex-col gap-2"}>
       <div>{title}</div>
@@ -48,7 +49,7 @@ export default function MultipleImageUploader({
         : prevImages?.map((image) => (
             <Image
               key={image}
-              src={`https://image.gdgyonsei.moveto.kr/projects/${projectId}/${image}`}
+              src={`https://image.gdgyonsei.moveto.kr/${type}/${projectId}/${image}`}
               alt={"Image"}
               width={300}
               height={300}

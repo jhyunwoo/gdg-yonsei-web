@@ -1,4 +1,7 @@
-export default function getKoDate(date: Date | null | undefined) {
+export default function getKoDate(
+  date: Date | null | undefined,
+  time: boolean = true,
+) {
   if (date) {
     const targetDate = new Date(date); // 현재 날짜와 시간
 
@@ -6,8 +9,8 @@ export default function getKoDate(date: Date | null | undefined) {
       year: "numeric",
       month: "long",
       day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
+      ...(time ? { hour: "numeric" } : {}),
+      ...(time ? { minute: "numeric" } : {}),
       hour12: false,
     }).format(targetDate);
   } else {

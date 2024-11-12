@@ -1,9 +1,9 @@
 "use client";
 
-import { useProjectLoading } from "@/lib/stores/project-loading";
+import { useModalLoading } from "@/lib/stores/modal-loading";
 
-export default function ProjectLoading() {
-  const { state, percentage } = useProjectLoading((state) => state);
+export default function ModalLoading() {
+  const { state, percentage } = useModalLoading((state) => state);
   if (state !== "") {
     return (
       <div

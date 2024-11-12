@@ -19,7 +19,7 @@ export default function CreateSessionPage() {
         </Link>
         <AdminPageTitle>Create Session</AdminPageTitle>
       </div>
-      <SessionForm />
+      <SessionForm type={"POST"} />
     </AdminPageLayout>
   );
 }
