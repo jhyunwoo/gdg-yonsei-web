@@ -3,6 +3,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { UserDataType } from "@/app/api/members/[userId]/route";
 
 interface MemberDataType {
   firstName: string;
@@ -11,7 +12,7 @@ interface MemberDataType {
   part: string;
   generation: number;
   role: string;
-  state: boolean;
+  active: boolean;
 }
 
 export default function EditForm({ userId }: { userId: string }) {
@@ -32,18 +33,32 @@ export default function EditForm({ userId }: { userId: string }) {
   useEffect(() => {
     async function fetchUserData() {
       const requestUserData = await fetch(`/api/members/${userId}`);
-      const userData = await requestUserData.json();
+      const userData = (await requestUserData.json()) as UserDataType;
 
       const requestParts = await fetch("/api/members/parts");
       const parts = (await requestParts.json()) as string[];
       setParts(parts);
-      setValue("firstName", userData.firstName);
-      setValue("lastName", userData.lastName);
-      setValue("name", userData.name);
-      setValue("part", userData.part);
-      setValue("generation", userData.generation);
-      setValue("role", userData.role);
-      setValue("state", userData.state);
+      if (userData.firstName) {
+        setValue("firstName", userData.firstName);
+      }
+      if (userData.lastName) {
+        setValue("lastName", userData.lastName);
+      }
+      if (userData.name) {
+        setValue("name", userData.name);
+      }
+      if (userData.part) {
+        setValue("part", userData.part);
+      }
+      if (userData.generation) {
+        setValue("generation", userData.generation);
+      }
+      if (userData.role) {
+        setValue("role", userData.role);
+      }
+      if (userData.active) {
+        setValue("active", userData.active);
+      }
     }
     fetchUserData();
   }, [setValue, userId]);
@@ -125,19 +140,19 @@ export default function EditForm({ userId }: { userId: string }) {
         </div>
       </div>
       <div>
-        <div className={"text-neutral-600 text-sm pl-3"}>State</div>
+        <div className={"text-neutral-600 text-sm"}>Active</div>
         <div className={"flex gap-2 *:p-1 *:px-3 *:rounded-lg text-white"}>
           <button
-            onClick={() => setValue("state", true)}
+            onClick={() => setValue("active", true)}
             type={"button"}
-            className={`${watch("state") ? "bg-blue" : "bg-blue-light"}`}
+            className={`${watch("active") ? "bg-blue" : "bg-blue-light"}`}
           >
             Active
           </button>
           <button
-            onClick={() => setValue("state", false)}
+            onClick={() => setValue("active", false)}
             type={"button"}
-            className={`${!watch("state") ? "bg-red" : "bg-red-light"}`}
+            className={`${!watch("active") ? "bg-red" : "bg-red-light"}`}
           >
             Alumni
           </button>

@@ -4,6 +4,8 @@ import db from "@/db";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
+export type UserDataType = typeof users.$inferSelect;
+
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ userId: string }> },

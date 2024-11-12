@@ -10,6 +10,8 @@ export default function SingleImageUploader({
   prevImage,
   projectId,
   type,
+  imageUrl,
+  isSquare,
 }: {
   title: string;
   setImage: (value: SetStateAction<File | undefined>) => void;
@@ -17,6 +19,8 @@ export default function SingleImageUploader({
   prevImage?: string | null | undefined;
   projectId?: string;
   type: string;
+  imageUrl?: string;
+  isSquare?: boolean;
 }) {
   return (
     <div className={"flex flex-col gap-2"}>
@@ -43,15 +47,19 @@ export default function SingleImageUploader({
           alt={"Default Image"}
           width={300}
           height={300}
-          className={"w-full"}
+          className={`w-full ${isSquare ? "aspect-1 rounded-xl" : ""}`}
         />
       ) : prevImage && projectId ? (
         <Image
-          src={`https://image.gdgyonsei.moveto.kr/${type}/${projectId}/${prevImage}`}
+          src={
+            imageUrl
+              ? imageUrl
+              : `https://image.gdgyonsei.moveto.kr/${type}/${projectId}/${prevImage}`
+          }
           alt={"Default Image"}
           width={300}
           height={300}
-          className={"w-full"}
+          className={`w-full ${isSquare ? "aspect-1 rounded-xl" : ""}`}
         />
       ) : null}
     </div>
