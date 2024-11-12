@@ -17,9 +17,11 @@
     "@aws-sdk/client-s3": "^3.687.0",
     "@aws-sdk/s3-request-presigner": "^3.687.0",
     "@heroicons/react": "^2.1.5",
+    "@hookform/resolvers": "^3.9.1",
     "@simplewebauthn/browser": "9.0.1",
     "@simplewebauthn/server": "9.0.3",
     "babel-plugin-react-compiler": "19.0.0-beta-8a03594-20241020",
+    "date-fns": "^4.1.0",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.36.1",
     "next": "15.0.3",
@@ -29,6 +31,7 @@
     "react-dom": "19.0.0-rc-fb9a90fa48-20240614",
     "react-hook-form": "^7.53.2",
     "swr": "^2.2.5",
+    "yup": "^1.4.0",
     "zustand": "^5.0.1"
   },
   "devDependencies": {

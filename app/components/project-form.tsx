@@ -11,6 +11,7 @@ import uploadImages from "@/lib/upload-images";
 import { useProjectLoading } from "@/lib/stores/project-loading";
 import SingleImageUploader from "@/app/components/single-image-uploader";
 import MultipleImageUploader from "@/app/components/multiple-image-uploader";
+import useTags from "@/lib/hooks/useTags";
 
 export interface InsertProjectType {
   title: string;
@@ -30,8 +31,10 @@ export default function ProjectForm({
   type: "POST" | "PUT";
   tagsData?: { name: string | null }[] | undefined;
 }) {
-  const { register, handleSubmit, setValue } = useForm<InsertProjectType>();
+  const { register, handleSubmit, setValue, getValues } =
+    useForm<InsertProjectType>();
   const { projectMembersData } = useProjectMembers();
+  const { tagsData: tags } = useTags();
   const router = useRouter();
   const { setProjectLoading, clearLoading } = useProjectLoading(
     (state) => state,
@@ -162,6 +165,18 @@ export default function ProjectForm({
         placeholder={"Tags (comma separated)"}
         {...register("tags")}
       />
+      <div className={"grid grid-cols-2 gap-2"}>
+        {tags?.map((tag, index) => (
+          <button
+            type={"button"}
+            key={index}
+            onClick={() => setValue("tags", getValues("tags") + "," + tag.name)}
+            className={`p-1 px-3 rounded-lg ring-2 ring-neutral-600`}
+          >
+            <div>{tag.name}</div>
+          </button>
+        ))}
+      </div>
       <div>Participants</div>
       <div className={"grid grid-cols-2 gap-2"}>
         {projectMembersData?.map((member) => (

@@ -1,6 +1,7 @@
 import AdminPageLayout from "@/app/components/admin-page-layout";
 import AdminPageTitle from "@/app/components/admin-page-title";
 import Link from "next/link";
+import SessionsList from "@/app/(admin)/admin/sessions/sessions-list";
 
 export default function SessionsPage() {
   return (
@@ -16,6 +17,7 @@ export default function SessionsPage() {
           Create Session
         </Link>
       </div>
+      <SessionsList />
     </AdminPageLayout>
   );
 }

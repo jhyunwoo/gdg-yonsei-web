@@ -135,25 +135,31 @@ export async function PUT(request: Request) {
 
     if (body.tags) {
       await db.delete(projectsTags).where(eq(projectsTags.projectId, body.id));
-      const createTags = await db
-        .insert(tags)
-        .values(
-          body.tags
-            .map((tag) => ({ name: tag }))
-            .filter((tag) => tag.name !== ""),
-        )
-        .returning({ id: tags.id });
 
-      const linkProjectToTags: { projectId: string; tagId: string }[] = [];
+      for (let tag of body.tags) {
+        tag = tag.replaceAll(" ", "");
 
-      for (const tag of createTags) {
-        linkProjectToTags.push({
-          projectId: body.id,
-          tagId: tag.id,
-        });
+        if (tag !== "") {
+          const findTag = await db
+            .select()
+            .from(tags)
+            .where(eq(tags.name, tag))
+            .limit(1);
+          if (findTag.length === 0) {
+            const createTag = await db
+              .insert(tags)
+              .values({ name: tag })
+              .returning({ id: tags.id });
+            await db
+              .insert(projectsTags)
+              .values({ tagId: createTag[0].id, projectId: body.id });
+          } else {
+            await db
+              .insert(projectsTags)
+              .values({ tagId: findTag[0].id, projectId: body.id });
+          }
+        }
       }
-
-      await db.insert(projectsTags).values(linkProjectToTags);
     }
 
     return NextResponse.json({ id: body.id });
