@@ -10,6 +10,7 @@ import {
 } from "@/db/schema";
 import { auth } from "@/auth";
 import { eq } from "drizzle-orm";
+import preprocessingTags from "@/lib/preprocessing-tags";
 
 export async function GET() {
   const checkPermission = await validateUserAccess(["core", "lead", "member"]);
@@ -46,6 +47,7 @@ export async function POST(request: Request) {
     participants: string[];
     tags: string[];
   };
+  const tagsData = preprocessingTags(body.tags);
 
   const createProject = await db
     .insert(projects)
@@ -60,21 +62,22 @@ export async function POST(request: Request) {
       id: projects.id,
     });
 
-  const createTags = await db
-    .insert(tags)
-    .values(body.tags.map((tag) => ({ name: tag })))
-    .returning({ id: tags.id });
-
-  const linkProjectToTags: { projectId: string; tagId: string }[] = [];
-
-  for (const tag of createTags) {
-    linkProjectToTags.push({
-      projectId: createProject[0].id,
-      tagId: tag.id,
-    });
+  for (const tag of tagsData) {
+    const findTag = await db.select().from(tags).where(eq(tags.name, tag));
+    if (findTag.length === 0) {
+      const createTag = await db
+        .insert(tags)
+        .values({ name: tag })
+        .returning({ id: tags.id });
+      await db
+        .insert(projectsTags)
+        .values({ projectId: createProject[0].id, tagId: createTag[0].id });
+    } else {
+      await db
+        .insert(projectsTags)
+        .values({ projectId: createProject[0].id, tagId: findTag[0].id });
+    }
   }
-
-  await db.insert(projectsTags).values(linkProjectToTags);
 
   const linkProjectToUserData: { projectId: string; userId: string }[] = [];
 
@@ -91,6 +94,7 @@ export async function POST(request: Request) {
 }
 
 export async function PUT(request: Request) {
+  console.log("Start");
   const checkPermission = await validateUserAccess(["core", "lead", "member"]);
   if (!checkPermission)
     return NextResponse.json({ error: "Permission Denied" }, { status: 403 });
@@ -104,6 +108,8 @@ export async function PUT(request: Request) {
     images: string[] | null | undefined;
     tags: string[] | null | undefined;
   };
+
+  const tagsData = preprocessingTags(body.tags);
 
   try {
     await db
@@ -133,31 +139,23 @@ export async function PUT(request: Request) {
       await db.insert(projectsMembers).values(linkProjectToUserData);
     }
 
-    if (body.tags) {
+    if (tagsData.length > 0) {
       await db.delete(projectsTags).where(eq(projectsTags.projectId, body.id));
 
-      for (let tag of body.tags) {
-        tag = tag.replaceAll(" ", "");
-
-        if (tag !== "") {
-          const findTag = await db
-            .select()
-            .from(tags)
-            .where(eq(tags.name, tag))
-            .limit(1);
-          if (findTag.length === 0) {
-            const createTag = await db
-              .insert(tags)
-              .values({ name: tag })
-              .returning({ id: tags.id });
-            await db
-              .insert(projectsTags)
-              .values({ tagId: createTag[0].id, projectId: body.id });
-          } else {
-            await db
-              .insert(projectsTags)
-              .values({ tagId: findTag[0].id, projectId: body.id });
-          }
+      for (const tag of tagsData) {
+        const findTag = await db.select().from(tags).where(eq(tags.name, tag));
+        if (findTag.length === 0) {
+          const createTag = await db
+            .insert(tags)
+            .values({ name: tag })
+            .returning({ id: tags.id });
+          await db
+            .insert(projectsTags)
+            .values({ projectId: body.id, tagId: createTag[0].id });
+        } else {
+          await db
+            .insert(projectsTags)
+            .values({ projectId: body.id, tagId: findTag[0].id });
         }
       }
     }

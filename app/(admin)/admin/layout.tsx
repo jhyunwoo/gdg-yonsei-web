@@ -7,6 +7,7 @@ import { users } from "@/db/schema";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { eq } from "drizzle-orm";
+import ConfirmModal from "@/app/components/confirm-modal";
 
 function AccessDenied() {
   return (
@@ -64,6 +65,7 @@ export default async function AdminLayout({
     <div className={"w-full min-h-screen flex"}>
       <Sidebar />
       <NavBar />
+      <ConfirmModal />
       {children}
     </div>
   );

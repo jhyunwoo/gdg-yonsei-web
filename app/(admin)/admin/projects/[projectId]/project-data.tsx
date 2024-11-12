@@ -7,9 +7,22 @@ import DataWithTitle from "@/app/components/data-with-title";
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
+import { useConfirmModal } from "@/lib/stores/confirm-modal";
 
 export default function ProjectData({ projectId }: { projectId: string }) {
-  const { projectData, participants, tags } = useProject(projectId);
+  const { projectData, participants, tags, mutateProject } =
+    useProject(projectId);
+  const router = useRouter();
+  const { setConfirmModal } = useConfirmModal((state) => state);
+
+  async function handleDelete() {
+    router.replace("/admin/projects");
+    await fetch(`/api/projects/${projectId}`, {
+      method: "DELETE",
+    });
+    await mutateProject();
+  }
 
   return (
     <div className={"bg-white p-2 rounded-xl gap-4 flex flex-col"}>
@@ -30,6 +43,18 @@ export default function ProjectData({ projectId }: { projectId: string }) {
         >
           <p>Edit</p>
         </Link>
+        <button
+          onClick={() =>
+            setConfirmModal(
+              "Are you sure you want to delete this project?",
+              handleDelete,
+            )
+          }
+          type={"button"}
+          className={"text-sm text-white p-1 px-3 rounded-lg bg-red"}
+        >
+          Delete
+        </button>
       </div>
       <div
         className={
@@ -71,10 +96,10 @@ export default function ProjectData({ projectId }: { projectId: string }) {
             "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 w-full"
           }
         >
-          {tags?.map((tag) =>
+          {tags?.map((tag, index) =>
             tag.name ? (
               <div
-                key={tag.name}
+                key={index}
                 className={"bg-neutral-100 p-1 px-3 rounded-lg text-center"}
               >
                 {tag.name}

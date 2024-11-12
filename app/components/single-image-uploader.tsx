@@ -18,9 +18,6 @@ export default function SingleImageUploader({
   projectId?: string;
   type: string;
 }) {
-  console.log(
-    `https://image.gdgyonsei.moveto.kr/${type}/${projectId}/${image}`,
-  );
   return (
     <div className={"flex flex-col gap-2"}>
       <div>{title}</div>

@@ -57,6 +57,11 @@ export default function SessionForm({
       }),
     });
     const result = (await createSession.json()) as { id: string };
+
+    if (!result.id) {
+      return;
+    }
+
     if (defaultImage) {
       setModalLoading("Upload Default Image...", 30);
       await uploadImages(result.id, [defaultImage], "sessions");

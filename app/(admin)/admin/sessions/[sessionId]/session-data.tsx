@@ -5,9 +5,21 @@ import AdminPageTitle from "@/app/components/admin-page-title";
 import Image from "next/image";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useConfirmModal } from "@/lib/stores/confirm-modal";
 
 export default function SessionData({ sessionId }: { sessionId: string }) {
-  const { sessionData } = useSession(sessionId);
+  const { sessionData, mutateSession } = useSession(sessionId);
+  const router = useRouter();
+  const { setConfirmModal } = useConfirmModal((state) => state);
+
+  async function handleDelete() {
+    router.replace("/admin/sessions");
+    await fetch(`/api/sessions/${sessionId}`, {
+      method: "DELETE",
+    });
+    await mutateSession();
+  }
   return (
     <div className={"bg-white p-2 rounded-xl gap-4 flex flex-col"}>
       <Link
@@ -15,7 +27,7 @@ export default function SessionData({ sessionId }: { sessionId: string }) {
         className={"flex items-center gap-2 hover:underline"}
       >
         <ChevronLeftIcon className={"size-6"} />
-        <p>Projects</p>
+        <p>Sessions</p>
       </Link>
       <div className={"flex gap-2 items-center"}>
         <AdminPageTitle>{sessionData?.title}</AdminPageTitle>
@@ -27,6 +39,18 @@ export default function SessionData({ sessionId }: { sessionId: string }) {
         >
           <p>Edit</p>
         </Link>
+        <button
+          onClick={() =>
+            setConfirmModal(
+              "Are you sure you want to delete this session?",
+              handleDelete,
+            )
+          }
+          type={"button"}
+          className={"text-sm text-white p-1 px-3 rounded-lg bg-red"}
+        >
+          Delete
+        </button>
       </div>
 
       <div className={"w-full grid-cols-1 grid lg:grid-cols-2 gap-2"}>

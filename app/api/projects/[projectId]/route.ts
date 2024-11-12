@@ -8,6 +8,8 @@ import {
 } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
+import validateUserAccess from "@/lib/server/validate-user-access";
+import { deleteImages } from "@/lib/server/delete-images";
 
 export async function GET(
   request: Request,
@@ -60,4 +62,20 @@ export async function GET(
     .where(eq(projects.id, projectId));
 
   return NextResponse.json({ projectData, participants, tags: tagData });
+}
+
+export async function DELETE(
+  request: Request,
+  { params }: { params: Promise<{ projectId: string }> },
+) {
+  const checkPermission = await validateUserAccess(["core", "lead", "member"]);
+  if (!checkPermission)
+    return NextResponse.json({ error: "Permission Denied" }, { status: 403 });
+  const { projectId } = await params;
+
+  await db.delete(projects).where(eq(projects.id, (await params).projectId));
+
+  await deleteImages(`projects/${projectId}`);
+
+  return NextResponse.json({ message: "Success" }, { status: 200 });
 }

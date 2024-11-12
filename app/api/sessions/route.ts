@@ -78,5 +78,5 @@ export async function PUT(request: Request) {
     })
     .where(eq(session.id, body.id));
 
-  return NextResponse.json({ message: "Update session success" });
+  return NextResponse.json({ id: body.id });
 }

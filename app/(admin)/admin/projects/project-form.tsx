@@ -74,6 +74,10 @@ export default function ProjectForm({
     });
     const createResult = (await createProject.json()) as { id: string };
 
+    if (!createResult.id) {
+      return;
+    }
+
     if (defaultImage) {
       setModalLoading("Upload Default Image...", 30);
       await uploadImages(createResult.id, [defaultImage], "projects");

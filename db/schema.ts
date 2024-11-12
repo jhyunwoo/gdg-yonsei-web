@@ -121,7 +121,7 @@ export const projects = pgTable("projects", {
 
 export const tags = pgTable("tags", {
   id: uuid("id").defaultRandom().primaryKey(),
-  name: text("name").notNull(),
+  name: text("name").notNull().unique(),
 });
 
 export const projectsTags = pgTable("projectsTags", {
