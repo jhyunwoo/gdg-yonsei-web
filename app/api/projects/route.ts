@@ -94,7 +94,6 @@ export async function POST(request: Request) {
 }
 
 export async function PUT(request: Request) {
-  console.log("Start");
   const checkPermission = await validateUserAccess(["core", "lead", "member"]);
   if (!checkPermission)
     return NextResponse.json({ error: "Permission Denied" }, { status: 403 });
@@ -139,9 +138,9 @@ export async function PUT(request: Request) {
       await db.insert(projectsMembers).values(linkProjectToUserData);
     }
 
-    if (tagsData.length > 0) {
-      await db.delete(projectsTags).where(eq(projectsTags.projectId, body.id));
+    await db.delete(projectsTags).where(eq(projectsTags.projectId, body.id));
 
+    if (tagsData.length > 0) {
       for (const tag of tagsData) {
         const findTag = await db.select().from(tags).where(eq(tags.name, tag));
         if (findTag.length === 0) {
