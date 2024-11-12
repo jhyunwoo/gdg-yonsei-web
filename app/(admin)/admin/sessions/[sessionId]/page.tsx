@@ -1,4 +1,4 @@
-import React from "react";
+import { use } from "react";
 import AdminPageLayout from "@/app/components/admin-page-layout";
 
 export default function SessionPage({
@@ -6,5 +6,5 @@ export default function SessionPage({
 }: {
   params: Promise<{ sessionId: string }>;
 }) {
-  return <AdminPageLayout>{React.use(params).sessionId}</AdminPageLayout>;
+  return <AdminPageLayout>{use(params).sessionId}</AdminPageLayout>;
 }
