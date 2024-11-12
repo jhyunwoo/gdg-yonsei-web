@@ -20,13 +20,15 @@ export default async function ProfilePage() {
       <AdminPageTitle>Profile</AdminPageTitle>
       <div className={"flex flex-col md:flex-row gap-2"}>
         {userData.image ? (
-          <Image
-            src={userData.image!}
-            alt={"Profile Image"}
-            width={100}
-            height={100}
-            className={"w-56 h-56 rounded-xl"}
-          />
+          <div className={"aspect-1 w-56 h-56"}>
+            <Image
+              src={userData.image!}
+              alt={"Profile Image"}
+              width={100}
+              height={100}
+              className={"object-cover w-full h-full rounded-xl"}
+            />
+          </div>
         ) : (
           <div className={"w-56 h-56bg-neutral-500 rounded-xl"} />
         )}

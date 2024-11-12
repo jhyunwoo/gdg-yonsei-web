@@ -42,25 +42,53 @@ export default function SingleImageUploader({
         }}
       />
       {image ? (
-        <Image
-          src={URL.createObjectURL(image)}
-          alt={"Default Image"}
-          width={300}
-          height={300}
-          className={`w-full ${isSquare ? "aspect-1 rounded-xl" : ""}`}
-        />
+        isSquare ? (
+          <div className={"w-full aspect-1"}>
+            <Image
+              src={URL.createObjectURL(image)}
+              alt={"Default Image"}
+              width={300}
+              height={300}
+              className={"w-full object-cover h-full rounded-xl"}
+            />
+          </div>
+        ) : (
+          <Image
+            src={URL.createObjectURL(image)}
+            alt={"Default Image"}
+            width={300}
+            height={300}
+            className={"w-full"}
+          />
+        )
       ) : prevImage && projectId ? (
-        <Image
-          src={
-            imageUrl
-              ? imageUrl
-              : `https://image.gdgyonsei.moveto.kr/${type}/${projectId}/${prevImage}`
-          }
-          alt={"Default Image"}
-          width={300}
-          height={300}
-          className={`w-full ${isSquare ? "aspect-1 rounded-xl" : ""}`}
-        />
+        isSquare ? (
+          <div className={"w-full aspect-1"}>
+            <Image
+              src={
+                imageUrl
+                  ? imageUrl
+                  : `https://image.gdgyonsei.moveto.kr/${type}/${projectId}/${prevImage}`
+              }
+              alt={"Default Image"}
+              width={300}
+              height={300}
+              className={"w-full object-cover h-full rounded-xl"}
+            />
+          </div>
+        ) : (
+          <Image
+            src={
+              imageUrl
+                ? imageUrl
+                : `https://image.gdgyonsei.moveto.kr/${type}/${projectId}/${prevImage}`
+            }
+            alt={"Default Image"}
+            width={300}
+            height={300}
+            className={"w-full"}
+          />
+        )
       ) : null}
     </div>
   );
