@@ -5,6 +5,7 @@ import LoadingAlert from "@/app/components/loading-alert";
 
 export const metadata: Metadata = {
   title: "GDG Yonsei Management System",
+  metadataBase: new URL(process.env.SITE_URL!),
   description:
     "Google Developer Group on Campus Yonsei University Sinchon Campus Management System Page",
 };

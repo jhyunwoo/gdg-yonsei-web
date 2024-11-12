@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   title: "GDG on Campus Yonsei",
   description:
     "Google Developer Group on Campus Yonsei University Sinchon Campus",
+  metadataBase: new URL(process.env.SITE_URL!),
 };
 
 export default function RootLayout({
