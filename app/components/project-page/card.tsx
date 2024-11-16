@@ -1,4 +1,4 @@
-import NoImg from "@/app/components/placeholder-image";
+// import NoImg from "@/app/components/placeholder-image";
 import { getProjectImageLink, getProjectLink } from "@/lib/links/projectLinks";
 import Image from "next/image";
 import Link from "next/link";

@@ -1,7 +1,5 @@
 import ProjectCard from "@/app/components/project-page/card";
 import Chip from "@/app/components/project-page/chip";
-import db from "@/db";
-import { projects } from "@/db/schema";
 import getProjects from "@/lib/server/get-projects";
 
 // interface AllProjects {
@@ -11,7 +9,7 @@ import getProjects from "@/lib/server/get-projects";
 export default async function ProjectsPage() {
   const allProjects = await getProjects();
 
-  console.log("First project id is " + allProjects[0].id);
+  // console.log("First project id is " + allProjects[0].id);
   return (
     <section className={"min-h-[400px] mt-[90px]"}>
       {/* Page header */}

@@ -6,14 +6,13 @@ import "@/app/css/carousel.css";
 import Image from "next/image";
 import { FC } from "react";
 import placeholderImg from "@/public/project/project-placeholder.jpg";
-import { getProjectImageLink } from "@/lib/links/projectLinks";
 
 interface CarouselProps {
   projectId: string;
   images: (string | null)[] | null;
 }
 
-const Carousel: FC<CarouselProps> = ({ projectId, images }) => {
+const Carousel: FC<CarouselProps> = ({ images }) => {
   const dummyImage = "/project/project-placeholder.jpg";
 
   console.log("Loaded " + images?.length + " images!");

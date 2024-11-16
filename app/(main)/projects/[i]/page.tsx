@@ -4,11 +4,7 @@ import React, { FC } from "react";
 import Chip from "@/app/components/project-page/chip";
 import CarouselComponent from "@/app/components/project-page/carouselComponent";
 import Link from "next/link";
-import { GetStaticProps, GetStaticPaths } from "next";
 import getProject from "@/lib/server/get-project";
-import { projects } from "@/db/schema";
-import db from "@/db";
-import getProjectMembers from "@/lib/server/get-project-members";
 import { getProjectImageLink } from "@/lib/links/projectLinks";
 
 // interface Project {
@@ -28,13 +24,13 @@ import { getProjectImageLink } from "@/lib/links/projectLinks";
 // }
 
 interface ProjectPageProps {
-  params: {
+  params: Promise<{
     i: string;
-  };
+  }>;
 }
 
 const ProjectDescPage: FC<ProjectPageProps> = async ({ params }) => {
-  const projectId: string = params.i;
+  const projectId: string = (await params).i;
 
   const projectData = await getProject(projectId);
   const project = projectData.project;
