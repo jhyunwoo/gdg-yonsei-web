@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { hostname } from "os";
 
 const nextConfig: NextConfig = {
   experimental: {
@@ -17,6 +18,8 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "image.gdgyonsei.moveto.kr",
+        port: "",
+        pathname: "/projects/**",
       },
       {
         protocol: "https",
