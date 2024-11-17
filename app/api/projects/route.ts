@@ -11,6 +11,7 @@ import {
 import { auth } from "@/auth";
 import { eq } from "drizzle-orm";
 import preprocessingTags from "@/lib/preprocessing-tags";
+import * as console from "node:console";
 
 export async function GET() {
   const checkPermission = await validateUserAccess(["core", "lead", "member"]);
@@ -108,7 +109,10 @@ export async function PUT(request: Request) {
     tags: string[] | null | undefined;
   };
 
+  console.log(body);
+
   const tagsData = preprocessingTags(body.tags);
+  console.log(tagsData);
 
   try {
     await db
@@ -138,12 +142,15 @@ export async function PUT(request: Request) {
       await db.insert(projectsMembers).values(linkProjectToUserData);
     }
 
-    await db.delete(projectsTags).where(eq(projectsTags.projectId, body.id));
-
     if (tagsData.length > 0) {
+      await db.delete(projectsTags).where(eq(projectsTags.projectId, body.id));
+
+      console.log("start tags config");
       for (const tag of tagsData) {
         const findTag = await db.select().from(tags).where(eq(tags.name, tag));
+        console.log(findTag);
         if (findTag.length === 0) {
+          console.log("No Tag");
           const createTag = await db
             .insert(tags)
             .values({ name: tag })
@@ -152,6 +159,7 @@ export async function PUT(request: Request) {
             .insert(projectsTags)
             .values({ projectId: body.id, tagId: createTag[0].id });
         } else {
+          console.log("Tag Found");
           await db
             .insert(projectsTags)
             .values({ projectId: body.id, tagId: findTag[0].id });
