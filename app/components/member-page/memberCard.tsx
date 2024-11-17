@@ -1,11 +1,8 @@
-import NoImg from "@/app/components/placeholder-image";
-import { getProjectImageLink, getProjectLink } from "@/lib/links/projectLinks";
+"use client";
 import Image from "next/image";
-import Link from "next/link";
+// components/memberCard.tsx
 
-// components/ProjectCard.tsx
-
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 
 interface MemberCardProps {
   memberId: string;
@@ -23,18 +20,30 @@ const MemberCard: FC<MemberCardProps> = ({
   part,
   role,
 }) => {
-//   const validDescription = description
-//     ? description
-//     : ["Description not provided"];
+  //   const validDescription = description
+  //     ? description
+  //     : ["Description not provided"];
+  const [isEnlarge, setIsEnlarge] = useState(false);
 
   return (
-    <div className="flex flex-row justify-between">
-        <div className="w-96 h-44 rounded-md bg-gray-500">
-            <h2 className="m-auto">{part}</h2>
+    <div className="flex flex-row justify-between mx-12 group">
+      <div className="w-32 h-44 rounded-md bg-gray-500 flex flex-row align-middle overflow-clip">
+        <div className="m-auto text-2xl text-white group-hover:hidden">
+          {part}
         </div>
-        <div className="text-center">
-            <h2>{memberName}</h2>
-        </div>
+        <Image
+          src={"https://picsum.photos/500"}
+          alt="Project image"
+          width={500}
+          height={500}
+          className="hidden group-hover:block"
+        />
+      </div>
+      <div className="flex flex-row items-center">
+        <h2 className="text-4xl font-bold underline underline-offset- group-hover:text-6xl">
+          {memberName}
+        </h2>
+      </div>
     </div>
   );
 };

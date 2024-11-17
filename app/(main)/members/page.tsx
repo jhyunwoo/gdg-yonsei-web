@@ -30,12 +30,11 @@ export default async function MembersPage() {
           <Chip text={"24-25"}></Chip>
         </div>
         {/* Member listing*/}
-        <p className="mt-2 text-lg">Come back soon!</p>
-
         <div className="my-2">
           <div className="flex flex-col gap-2 mx-2">
             {leadMembers.map((member, index) => (
               <MemberCard
+                key={index}
                 memberId={member.id}
                 memberName={member.name}
                 generation={member.generation}
@@ -45,6 +44,7 @@ export default async function MembersPage() {
             ))}
             {coreMembers.map((member, index) => (
               <MemberCard
+                key={index}
                 memberId={member.id}
                 memberName={member.name}
                 generation={member.generation}
@@ -54,6 +54,7 @@ export default async function MembersPage() {
             ))}
             {activeMembers.map((member, index) => (
               <MemberCard
+                key={index}
                 memberId={member.id}
                 memberName={member.name}
                 generation={member.generation}
