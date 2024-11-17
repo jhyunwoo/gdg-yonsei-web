@@ -21,7 +21,7 @@ export default function ProjectList() {
           className={"bg-white p-2 rounded-lg ring-2 ring-neutral-700"}
           prefetch={true}
         >
-          <div className={"text-xl font-semibold text-center p-4"}>
+          <div className={"text-xl font-semibold text-center p-4 break-words"}>
             {project.title}
           </div>
 
