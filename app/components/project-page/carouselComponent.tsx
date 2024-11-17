@@ -2,7 +2,6 @@
 
 // components/Carousel.js
 import React, { useState } from "react";
-import "@/app/css/carousel.css";
 import Image from "next/image";
 import { FC } from "react";
 import placeholderImg from "@/public/project/project-placeholder.jpg";
@@ -23,7 +22,7 @@ const Carousel: FC<CarouselProps> = ({ images }) => {
   const prevImage = () => {
     if (validImages) {
       setCurrentIndex((prevIndex) =>
-        prevIndex > 0 ? prevIndex - 1 : validImages.length - 1
+        prevIndex > 0 ? prevIndex - 1 : validImages.length - 1,
       );
     }
 
@@ -33,7 +32,7 @@ const Carousel: FC<CarouselProps> = ({ images }) => {
   const nextImage = () => {
     if (validImages) {
       setCurrentIndex((prevIndex) =>
-        prevIndex < validImages.length - 1 ? prevIndex + 1 : 0
+        prevIndex < validImages.length - 1 ? prevIndex + 1 : 0,
       );
     }
 
@@ -48,15 +47,20 @@ const Carousel: FC<CarouselProps> = ({ images }) => {
       >
         ◀
       </button>
-      <div className="w-full h-[500px] bg-gray-300">
+      <div className="bg-image-span">
         <div className="m-auto">
           <Image
             key={currentIndex}
-            src={validImages[currentIndex] ? validImages[currentIndex] : placeholderImg}
+            src={
+              validImages[currentIndex]
+                ? validImages[currentIndex]
+                : placeholderImg
+            }
             alt={`Slide ${currentIndex}`}
             height={1300}
             width={1300}
-          />  
+            className="aspect-ratio"
+          />
         </div>
       </div>
       <button

@@ -34,7 +34,8 @@ const ProjectDescPage: FC<ProjectPageProps> = async ({ params }) => {
 
   const projectData = await getProject(projectId);
   const project = projectData.project;
-  const members = projectData.participants //await getProjectMembers(projectId);
+  const members = projectData.participants; //await getProjectMembers(projectId);
+  const tags = projectData.tags.map((tag) => tag.name);
 
   if (!project) {
     return (
@@ -44,43 +45,70 @@ const ProjectDescPage: FC<ProjectPageProps> = async ({ params }) => {
     );
   }
 
-  const imageLinks = project.images? project.images.map((imageFileName) => getProjectImageLink(project.id, imageFileName)) : []; // return empty array if images is null
+  const imageLinks = project.images
+    ? project.images.map((imageFileName) =>
+        getProjectImageLink(project.id, imageFileName),
+      )
+    : []; // return empty array if images is null
 
   return (
-    <section className={"min-h-[800px] mt-[90px]"}>
+    <section className={"min-h-[800px]"}>
       {/* Page header */}
-      <div className={"w-full lg:w-[70%] max-w-[1300px] ml-4 lg:mx-auto my-2"}>
-        <h1 className={"text-4xl font-bold"}>{project.title}</h1>
+      <div className={"wrapper"}>
+        <h2 className={"title"}>{project.title}</h2>
       </div>
-      <hr></hr>
+      <hr />
       {/* Project Description */}
-      <div className={"w-full lg:w-[70%] max-w-[1300px] ml-4 lg:mx-auto"}>
+      <div className={"wrapper"}>
         <div className="flex flex-col gap-4">
           {/* Carousel */}
-          <div className="w-full my-2">
-            <CarouselComponent projectId={project.id} images={imageLinks}></CarouselComponent>
-          </div>
+          <CarouselComponent
+            projectId={project.id}
+            images={imageLinks}
+          ></CarouselComponent>
           {/* TODO Mini carousel for image selection */}
           {/* Contributors */}
-          <h1 className={"text-2xl"}>Contributors</h1>
-          <div className={"flex flex-row gap-2"}>
-            {members.map((contributor, index) => (
-              <Chip key={index} text={contributor.name? contributor.name: "Anonymous"} />
-            ))}
+          <div
+            className={
+              "horz-flex flex-wrap justify-between xl:justify-start xl:gap-x-32"
+            }
+          >
+            <div className="w-[100%] xl:w-auto">
+              <h2>Contributors</h2>
+              <div className="horz-flex">
+                {members.map((contributor, index) => (
+                  <Chip
+                    key={index}
+                    text={contributor.name ? contributor.name : "Anonymous"}
+                  />
+                ))}
+              </div>
+            </div>
+            <div>
+              <h2>Tags</h2>
+              <div className="horz-flex">
+                {tags &&
+                  tags
+                    .filter((tag) => tag !== null) // Filter out null values
+                    .map((tag, index) => <Chip key={index} text={tag} />)}
+              </div>
+            </div>
+            <div>
+              <h2 className="hidden">Links</h2>
+              {project.github ? (
+                <Link href={"https://" + project.github}>Github link</Link>
+              ) : (
+                ""
+              )}{" "}
+            </div>
           </div>
-          <h1 className={"text-2xl"}>About this project</h1>
-          {project.description?.map((paragraph, index) => (
-            <p key={index}>{paragraph}</p>
-          ))}
-          <h1 className={"text-2xl"}>Links</h1>
-          {project.github? 
-            <Link href={"https://" + project.github} className={"hover:underline"}>
-              Github link
-            </Link>
-          : ""} {/* TODO grab convention for github links */}
-          <Link href={"/projects"} className={"hover:underline"}>
-            Back to projects
-          </Link>
+          <h2>About this project</h2>
+          {project.description?.map((paragraph, index) =>
+            paragraph ? <p key={index}>{paragraph}</p> : <></>,
+          )}
+          <div className="w-24 ml-auto my-4">
+            <Link href={"#"}>Back to top</Link>
+          </div>
         </div>
       </div>
     </section>

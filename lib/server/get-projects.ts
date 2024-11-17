@@ -31,11 +31,11 @@ export default async function getProjects() {
       .leftJoin(users, eq(projectsMembers.userId, users.id))
       .where(eq(projectsMembers.projectId, project.id));
 
-      const participants =
+    const participants =
       participantsData.length > 0
         ? participantsData
             .filter((participant) => participant.name !== null) // Filter out null names
-            .map((participant) => participant.name as string)   // Map to string array
+            .map((participant) => participant.name as string) // Map to string array
         : null;
 
     // Fetch tags for the current project

@@ -13,12 +13,8 @@ export default async function ProjectsPage() {
   return (
     <section className={"min-h-[400px] mt-[90px]"}>
       {/* Page header */}
-      <div
-        className={
-          "wrapper flex-col"
-        }
-      >
-        <h1 className={"text-4xl font-bold"}>Projects</h1>
+      <div className={"wrapper flex-col"}>
+        <h2 className={"title"}>Projects</h2>
       </div>
       <hr></hr>
       {/* Project Listing */}
