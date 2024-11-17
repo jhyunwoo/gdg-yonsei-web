@@ -9,4 +9,8 @@
     .text-area-from {
         @apply p-2 bg-neutral-100 rounded-lg px-4 font-semibold text-lg w-full;
     }
+
+    .wrapper {
+        @apply max-w-[1300px] mx-auto lg:w-[70%] ml-2 lg:mx-auto my-2 
+    }
 }

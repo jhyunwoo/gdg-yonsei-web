@@ -15,14 +15,14 @@ export default async function ProjectsPage() {
       {/* Page header */}
       <div
         className={
-          "w-full lg:w-[70%] max-w-[1300px] ml-2 lg:mx-auto my-2 flex-col"
+          "wrapper flex-col"
         }
       >
         <h1 className={"text-4xl font-bold"}>Projects</h1>
       </div>
       <hr></hr>
       {/* Project Listing */}
-      <div className={"w-full lg:w-[70%] max-w-[1300px] mx-auto"}>
+      <div className={"wrapper"}>
         <div>
           <div className={"flex gap-2 m-4"}>
             <div>Stage</div>
@@ -35,11 +35,14 @@ export default async function ProjectsPage() {
               {allProjects.map((project, index) => (
                 <ProjectCard
                   key={index}
-                  projectId={project.id}
-                  projectName={project.title}
-                  description={project.description}
-                  defaultImage={project.defaultImage}
-                ></ProjectCard>
+                  projectId={project.project.id}
+                  projectName={project.project.title}
+                  description={project.project.description}
+                  contributors={project.participants}
+                  defaultImage={project.project.defaultImage}
+                  startDate="YYYY.MM.DD"
+                  endDate="YYYY.MM.DD"
+                />
               ))}
             </div>
           </div>
