@@ -2,14 +2,9 @@ import ProjectCard from "@/app/components/project-page/card";
 import Chip from "@/app/components/project-page/chip";
 import getProjects from "@/lib/server/get-projects";
 
-// interface AllProjects {
-
-// }
-
 export default async function ProjectsPage() {
   const allProjects = await getProjects();
-
-  // console.log("First project id is " + allProjects[0].id);
+  console.log(allProjects);
   return (
     <section className={"min-h-[400px] mt-[90px]"}>
       {/* Page header */}
@@ -39,7 +34,7 @@ export default async function ProjectsPage() {
                   projectName={project.title}
                   description={project.description}
                   defaultImage={project.defaultImage}
-                ></ProjectCard>
+                />
               ))}
             </div>
           </div>

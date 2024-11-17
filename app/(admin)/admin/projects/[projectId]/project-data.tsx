@@ -111,13 +111,15 @@ export default function ProjectData({ projectId }: { projectId: string }) {
       <div className={"w-full grid-cols-1 grid lg:grid-cols-2 gap-2"}>
         <div>
           <div className={"text-sm text-neutral-700"}>Default Image</div>
-          <Image
-            src={`https://image.gdgyonsei.moveto.kr/projects/${projectId}/${projectData?.defaultImage}`}
-            alt={"Default Image"}
-            width={300}
-            height={300}
-            className={"w-full"}
-          />
+          {projectData?.defaultImage && (
+            <Image
+              src={`https://image.gdgyonsei.moveto.kr/projects/${projectId}/${projectData?.defaultImage}`}
+              alt={"Default Image"}
+              width={300}
+              height={300}
+              className={"w-full"}
+            />
+          )}
         </div>
         <div>
           <div className={"text-sm text-neutral-700"}>Images</div>
