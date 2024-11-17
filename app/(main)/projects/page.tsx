@@ -4,7 +4,7 @@ import getProjects from "@/lib/server/get-projects";
 
 export default async function ProjectsPage() {
   const allProjects = await getProjects();
-  console.log(allProjects);
+
   return (
     <section className={"min-h-[400px] mt-[90px]"}>
       {/* Page header */}
