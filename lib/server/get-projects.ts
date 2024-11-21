@@ -6,7 +6,7 @@ import {
   tags,
   users,
 } from "@/db/schema";
-import { desc, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 /**
  * 모든 프로젝트를 가져오는 함수

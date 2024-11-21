@@ -21,15 +21,15 @@ interface ProjectCardProps {
 const ProjectCard: FC<ProjectCardProps> = ({
   projectId,
   projectName,
-  description,
+  //description,
   contributors,
   defaultImage,
   startDate,
   endDate,
 }) => {
-  const validDescription = description
-    ? description
-    : ["Description not provided"];
+  const validDescription =
+    // description? description :
+    ["Description not provided"];
 
   return (
     <>
@@ -58,10 +58,9 @@ const ProjectCard: FC<ProjectCardProps> = ({
               <span>{startDate} ~</span>
               <span>{endDate}</span>
             </div>
-            Project has no shortened description.
-            {/* {validDescription.slice(0, 1).map((description, index) => (
+            {validDescription.slice(0, 1).map((description, index) => (
               <p key={index}>{description}</p>
-            ))} */}
+            ))}
             {/* <div className="h-full w-full bg-gradient-to-r from-transparent to-white absolute top-0"></div> */}
           </div>
         </article>
