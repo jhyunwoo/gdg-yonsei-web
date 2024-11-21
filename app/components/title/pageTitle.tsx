@@ -11,7 +11,7 @@ interface PageTitleProps {
 const PageTitleComponent: FC<PageTitleProps> = ({ title }) => {
   return (
     <>
-      <div className={"wrapper flex-col"}>
+      <div className={"wrapper"}>
         <h2 className={"title"}>{title}</h2>
       </div>
       <hr />

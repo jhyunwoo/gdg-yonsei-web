@@ -2,7 +2,7 @@
 import Image from "next/image";
 // components/memberCard.tsx
 
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 
 interface MemberCardProps {
   memberId: string;
@@ -14,19 +14,19 @@ interface MemberCardProps {
 
 // Create the functional component using props
 const MemberCard: FC<MemberCardProps> = ({
-  memberId,
+  //memberId,
   memberName,
-  generation,
+  //generation,
   part,
-  role,
+  //role,
 }) => {
   //   const validDescription = description
   //     ? description
   //     : ["Description not provided"];
-  const [isEnlarge, setIsEnlarge] = useState(false);
+  //const [isEnlarge, setIsEnlarge] = useState(false);
 
   return (
-    <div className="flex flex-row justify-between mx-12 group">
+    <div className="flex flex-row justify-between px-12 group my-4">
       <div className="w-32 h-44 rounded-md bg-gray-500 flex flex-row align-middle overflow-clip">
         <div className="m-auto text-2xl text-white group-hover:hidden">
           {part}

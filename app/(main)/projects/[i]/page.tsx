@@ -6,6 +6,7 @@ import CarouselComponent from "@/app/components/project-page/carouselComponent";
 import Link from "next/link";
 import getProject from "@/lib/server/get-project";
 import { getProjectImageLink } from "@/lib/links/projectLinks";
+import PageTitleComponent from "@/app/components/title/pageTitle";
 
 // interface Project {
 //   id: string;
@@ -52,14 +53,10 @@ const ProjectDescPage: FC<ProjectPageProps> = async ({ params }) => {
     : []; // return empty array if images is null
 
   return (
-    <section className={"min-h-[800px]"}>
-      {/* Page header */}
-      <div className={"wrapper"}>
-        <h2 className={"title"}>{project.title}</h2>
-      </div>
-      <hr />
-      {/* Project Description */}
-      <div className={"wrapper"}>
+    <>
+      <PageTitleComponent title={project.title} />
+      <section className={"wrapper"}>
+        {/* Project Description */}
         <div className="flex flex-col gap-4">
           {/* Carousel */}
           <CarouselComponent
@@ -110,8 +107,8 @@ const ProjectDescPage: FC<ProjectPageProps> = async ({ params }) => {
             <Link href={"#"}>Back to top</Link>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 
