@@ -33,7 +33,7 @@ const ProjectCard: FC<ProjectCardProps> = ({
 
   return (
     <>
-      <Link href={getProjectLink(projectId)}>
+      <Link href={getProjectLink(projectId)} className="hover:no-underline">
         <article className="rounded-md border border-slate-400 p-2 flex flex-row gap-4 max-h-[340px]">
           <div className=" bg-clip-border min-w-[300px]">
             <Image
