@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import DataWithTitle from "@/app/components/data-with-title";
 import Link from "next/link";
 import getUserData from "@/lib/server/get-user-data";
-import Image from "next/image";
+import ProfileImage from "@/app/components/profile-image";
 
 export default async function ProfilePage() {
   const session = await auth();
@@ -19,19 +19,7 @@ export default async function ProfilePage() {
     <AdminPageLayout>
       <AdminPageTitle>Profile</AdminPageTitle>
       <div className={"flex flex-col md:flex-row gap-2"}>
-        {userData.image ? (
-          <div className={"aspect-1 w-56 h-56"}>
-            <Image
-              src={userData.image!}
-              alt={"Profile Image"}
-              width={100}
-              height={100}
-              className={"object-cover w-full h-full rounded-xl"}
-            />
-          </div>
-        ) : (
-          <div className={"w-56 h-56bg-neutral-500 rounded-xl"} />
-        )}
+        <ProfileImage imagePath={userData.image} />
         <div className={"w-full grid grid-cols-1 md:grid-cols-2"}>
           <DataWithTitle title={"Github Name"} data={userData.name} />
           <DataWithTitle title={"First Name"} data={userData.firstName} />

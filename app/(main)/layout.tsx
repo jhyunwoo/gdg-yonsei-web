@@ -19,14 +19,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: ReactNode;
+  modal: ReactNode;
 }>) {
   return (
     <html lang="en" className={`${googleSans.className} bg-background`}>
       <body>
         <Header />
         {children}
+        {modal}
         <Footer />
       </body>
     </html>

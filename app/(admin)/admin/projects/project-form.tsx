@@ -213,7 +213,7 @@ export default function ProjectForm({
         <div>Description</div>
         <textarea
           className={
-            "p-2 bg-neutral-100 rounded-lg px-4 font-semibold text-lg w-full;"
+            "p-2 bg-neutral-100 rounded-lg px-4 font-semibold text-lg w-full overflow-hidden resize-none h-64"
           }
           placeholder={"Description"}
           {...register("description")}

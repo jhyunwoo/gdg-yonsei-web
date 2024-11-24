@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import getMemberName from "@/lib/get-member-name";
 import DataWithTitle from "@/app/components/data-with-title";
+import ProfileImage from "@/app/components/profile-image";
 
 export default function MemberPage({
   params,
@@ -41,21 +42,24 @@ export default function MemberPage({
           Edit
         </Link>
       </div>
-      <div
-        className={
-          "p-2 rounded-xl bg-white grid grid-cols-2 lg:grid-cols-4 gap-2"
-        }
-      >
-        <DataWithTitle title={"First Name"} data={memberData?.firstName} />
-        <DataWithTitle title={"Last Name"} data={memberData?.lastName} />
-        <DataWithTitle title={"Github Name"} data={memberData?.name} />
-        <DataWithTitle title={"Part"} data={memberData?.part} />
-        <DataWithTitle title={"Generation"} data={memberData?.generation} />
-        <DataWithTitle title={"Role"} data={memberData?.role} />
-        <DataWithTitle
-          title={"State"}
-          data={memberData?.active ? "Active" : "Alumni"}
-        />
+      <div className={"flex items-start gap-2"}>
+        <ProfileImage imagePath={memberData?.image} />
+        <div
+          className={
+            "p-2 rounded-xl bg-white grid grid-cols-2 lg:grid-cols-4 gap-2 w-full"
+          }
+        >
+          <DataWithTitle title={"First Name"} data={memberData?.firstName} />
+          <DataWithTitle title={"Last Name"} data={memberData?.lastName} />
+          <DataWithTitle title={"Github Name"} data={memberData?.name} />
+          <DataWithTitle title={"Part"} data={memberData?.part} />
+          <DataWithTitle title={"Generation"} data={memberData?.generation} />
+          <DataWithTitle title={"Role"} data={memberData?.role} />
+          <DataWithTitle
+            title={"State"}
+            data={memberData?.active ? "Active" : "Alumni"}
+          />
+        </div>
       </div>
     </AdminPageLayout>
   );
