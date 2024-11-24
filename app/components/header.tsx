@@ -6,7 +6,7 @@ export default function Header() {
     <>
       <div
         className={
-          "w-full px-4 my-4 flex justify-between items-center fixed top-0 left-0 bg-background z-10"
+          "w-full p-4 flex justify-between items-center fixed top-0 left-0 bg-background z-30"
         }
       >
         <Link href={"/"}>
